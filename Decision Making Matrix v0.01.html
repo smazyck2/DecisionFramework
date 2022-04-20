@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Decision Making Tool</title>
+	<link rel="stylesheet" type="text/css" href="DMT_Style.css" />
+</head>
+
+<!-- Do this in VS Code in DiceLab -->
+
+<body>
+	<section>
+		<h1 class="center_text">Decision Making Tool</h1>
+		<div id="setupModal" class="modal">
+			<div id="setup" class="card center_both white">
+				
+				<!-- Project Constraints -->
+				<div class="grid_2">
+					<span class="right_text">Budget ($K): </span>
+					<input type="number" id="iptConstraintsBudget" class="short" required>
+					<span class="right_text">Schedule (months): </span>
+					<input type="number" id="iptConstraintsSchedule" class="short" required>
+				</div>
+			
+				<!-- General Scale -->
+				<div class="grid_2">
+					<b>General Rating Scale</b>
+					<b>Ratings</b>
+					<span class="blue">Maximum Rating =</span>
+					<input type="Number" id="iptMaxGeneralRating" class="short" value=10>
+					<span class="blue">Significantly Exceeds Expectations &ge;</span>
+					<input type="Number" id="iptBlueGeneralRating" class="short" value=9>
+					<span class="teal">Exceeds Expectations &ge;</span>
+					<input type="Number" id="iptTealGeneralRating" class="short" value=7>
+					<span class="green">Acceptable &ge;</span>
+					<input type="Number" id="iptGreenGeneralRating" class="short" value=4>
+					<span class="yellow">Deficient &ge;</span>
+					<input type="Number" id="iptYellowGeneralRating" class="short" value=2>
+					<span class="red">Significantly Deficient &ge;</span>
+					<input type="Number" id="iptRedGeneralRating" class="short" value=0>
+				</div>
+			
+				<!-- Schedule Scale -->
+				<div class="grid_3">
+					<b>Schedule Rating Scale (&plusmn;)</b>
+					<b><input type="radio" id="useScheduleMonths" name="months"> Months</b>
+					<b><input type="radio" id="useSchedulePercent" name="months" checked> % Delay</b>
+					
+					<span class="blue">Significantly Early &lt;</span>
+					<input type="Number" id="iptBlueScheduleRating" class="short month">
+					<input type="Number" id="iptBluePercent" class="short" min="-100" value=-20>
+						
+					<span class="teal">Early &lt;</span>
+					<input type="Number" id="iptTealScheduleRating" class="short month">
+					<input type="Number" id="iptTealPercent" class="short" value=-10>
+						
+					<span class="green">Acceptable &lt;</span>
+					<input type="Number" id="iptGreenScheduleRating" class="short month">
+					<input type="Number" id="iptGreenPercent" class="short" value=5>
+						
+					<span class="yellow">Late &lt;</span>
+					<input type="Number" id="iptYellowScheduleRating" class="short month">
+					<input type="Number" id="iptYellowPercent" class="short" value=10>
+						
+					<span class="red">Too Late &lt;</span>
+					<input type="Number" id="iptRedScheduleRating" class="short month">
+					<input type="Number" id="iptRedPercent" class="short" value=15>
+				</div>
+			
+				<!-- Affordability -->
+				<div class="grid_4">
+					<b>Affordability Rating Scale (&plusmn;)</b>
+					<b><input type="radio" id="useBudgetCost" name="budget">Cost ($K)</b>
+					<b><input type="radio" id="useBudgetPercent" name="budget" checked>% Overrun</b>
+					<b>Symbols</b>
+					
+					<span class="green">Affordable  &le;</span>
+					<input type="Number" id="iptGreenAffordRating" class="short">
+					<input type="Number" id="iptGreenAffordPercent" class="short" value=5>
+					&#10003
+					
+					<span class="yellow">Budget Risk &le;</span>
+					<input type="Number" id="iptYellowAffordRating" class="short">
+					<input type="Number" id="iptYellowAffordPercent" class="short" value=10>
+					?
+					
+					<span class="red">Unaffordable &gt;</span>
+					<input type="Number" id="iptRedAffordRating" class="short">
+					<input type="Number" id="iptRedAffordPercent" class="short" value=11>
+					X
+				</div>
+				
+				<!-- Security Rating Scale -->
+				<div class="grid_2 center_text top_margin">
+					<b>Security Rating Scale</b>
+					<b>Ratings</b>
+					
+					<span class="green">Low Risk</span>
+					<span id="iptGreenGeneralRating" class="short">4</span>
+					<span class="yellow">Moderate Risk</span>
+					<span id="iptYellowGeneralRating" class="short">2</span>
+					<span class="red">High Risk</span>
+					<span id="iptRedGeneralRating" class="short">0</span>
+				</div>
+				
+				<!-- Buttons -->
+				<div class="top_margin center_text">
+					<button id="btnApply" class="card button">Apply</button>
+					<button id="btnCancel" class="card button">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="DM_script.js"></script>
+</body>
+</html>

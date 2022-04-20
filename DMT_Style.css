@@ -1,0 +1,79 @@
+:root {
+	--margin: 0.10rem;
+	--padding: 0.20rem;
+	--short: 22%;
+}
+
+* {
+	box-sizing: border-box;
+	font-family: Helvetica;
+	font-size: .95rem;
+	padding: var(--padding);
+	
+	--grid-gap: var(--padding) calc(var(--padding));
+}
+
+body, html, section { margin: 0px; padding: 0px; }
+section { position: absolute; }
+
+input { 	
+	border: 0px; 
+	border-bottom: 1px solid lightgray;
+	text-align: center;
+}
+
+.button:hover { background-color: lightgray; }
+.button:active { background-color: gray; }
+
+.center_both { 
+	position: relative;
+	width: fit-content;
+	
+	top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);
+	}
+
+.center_text {text-align: center;}
+.right_text {text-align: right; }
+
+.card {
+	border: 1px solid lightgray;
+	border-radius: 12px 12px;
+	box-shadow: gray 4px 5px;
+	padding: calc(var(--padding) * 5);
+}
+
+.grid_2, .grid_3, .grid_4 {
+	display: grid;
+	grid-gap: var(--grid-gap);
+	margin-top: calc(var(--margin) * 10);
+	text-align: center;
+}
+
+.grid_2 { grid-template-columns: 280px min-content; }
+.grid_3 {	grid-template-columns: 280px min-content min-content; }
+.grid_4 {	grid-template-columns: 280px min-content min-content min-content;}
+
+
+.modal {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(50,50,50,.90);
+	top: 0px; bottom: 0px;
+}
+
+.short { width: 120px;}
+
+.top_margin {
+	margin-top: calc(var(--margin) * 10);
+}
+
+.visible {visibility: visible; }
+.invisible {visibility: hidden; }
+
+.blue{background-color: blue; color: white;}
+.teal {background-color: skyblue;}
+.green {background-color: lightgreen;}
+.yellow {background-color: yellow;}
+.red {background-color: red; color: white;}
+.white {background-color: white;}
