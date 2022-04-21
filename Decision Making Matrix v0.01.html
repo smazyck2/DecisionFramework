@@ -17,9 +17,9 @@
 				<!-- Project Constraints -->
 				<div class="grid_2">
 					<span class="right_text">Budget ($K): </span>
-					<input type="number" id="iptConstraintsBudget" class="short" required>
+					<input type="number" id="iptConstraintsBudget" class="short" required value="97">
 					<span class="right_text">Schedule (months): </span>
-					<input type="number" id="iptConstraintsSchedule" class="short" required>
+					<input type="number" id="iptConstraintsSchedule" class="short" required value="9">
 				</div>
 			
 				<!-- General Scale -->
@@ -41,7 +41,7 @@
 				</div>
 			
 				<!-- Schedule Scale -->
-				<div class="grid_3">
+				<div id="schedule_block" class="grid_3">
 					<b>Schedule Rating Scale (&plusmn;)</b>
 					<b><input type="radio" id="useScheduleMonths" name="months"> Months</b>
 					<b><input type="radio" id="useSchedulePercent" name="months" checked> % Delay</b>
@@ -64,11 +64,11 @@
 						
 					<span class="red">Too Late &gt;</span>
 					<input type="Number" id="iptRedScheduleRating" class="short month" disabled>
-					<input type="Number" id="iptRedPercent" class="short" value="15" disabled>
+					<input type="Number" id="iptRedPercent" class="short" value="10" disabled>
 				</div>
 			
 				<!-- Affordability -->
-				<div class="grid_4">
+				<div id="affordability_block" class="grid_4">
 					<b>Affordability Rating Scale (&plusmn;)</b>
 					<b><input type="radio" id="useBudgetCost" name="budget">Cost ($K)</b>
 					<b><input type="radio" id="useBudgetPercent" name="budget" checked>% Overrun</b>
@@ -105,13 +105,15 @@
 				
 				<!-- Buttons -->
 				<div class="top_margin center_text">
-					<button id="btnApply" class="card button">Apply</button>
-					<button id="btnCancel" class="card button">Cancel</button>
+					<button id="btnLoad" class="card button">Load</button>
+					<button id="btnSave" class="card button">Save</button>
+					<button id="btnReset" class="card button">Reset</button>
+					<button id="btnHide" class="card button">Hide</button>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<script src="DM_script.js"></script>
+	<script src="Setup_script.js"></script>
 </body>
 </html>
