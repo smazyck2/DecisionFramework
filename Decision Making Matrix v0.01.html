@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
 	<title>Decision Making Tool</title>
 	<link rel="stylesheet" type="text/css" href="DMT_Style.css" />
 </head>
@@ -9,12 +11,18 @@
 <!-- Do this in VS Code in DiceLab -->
 
 <body>
-	<section>
+	
+	<nav id="nav" class="fixed_top">
 		<h1 class="center_text">Decision Making Tool</h1>
+		<menu></menu>
+	</nav>
+	<section>
+		<!-- <div id="setupModal" class="docked"> -->
 		<div id="setupModal" class="modal">
 			<div id="setup" class="card center_both white">
 				
-				<!-- Project Constraints -->
+				<!-- Decision Constraints -->
+				<div class="center_text"><b>Evaluation Setup</b></div>
 				<div class="grid_2">
 					<span class="right_text">Budget ($K): </span>
 					<input type="number" id="iptConstraintsBudget" class="short" required value="97">
@@ -105,9 +113,9 @@
 				
 				<!-- Buttons -->
 				<div class="top_margin center_text">
-					<button id="btnLoad" class="card button">Load</button>
+					<button id="btnLoad" class="button card">Load</button>
+					<button id="btnReset" class="button card">Restore</button>
 					<button id="btnSave" class="card button">Save</button>
-					<button id="btnReset" class="card button">Restore</button>
 					<button id="btnHide" class="card button">Hide</button>
 				</div>
 			</div>

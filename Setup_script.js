@@ -59,7 +59,7 @@ function scheduleListener(event) {
 
   hs.iptBlueScheduleRating.disabled = !useMonths
   hs.iptTealScheduleRating.disabled = !useMonths
-  hs.iptGreenScheduleRating.dsabled = !useMonths
+  hs.iptGreenScheduleRating.disabled = !useMonths
   hs.iptYellowScheduleRating.disabled = !useMonths
 
   hs.iptBluePercent.disabled = useMonths
@@ -169,8 +169,14 @@ function restoreValues() {
 // -------------------------------------------------------------------------
 // UI FUNCTIONS
 function hide() {
-  console.log('clsoing')
+  console.log('closing')
+  hs.setupModal.classList.add('invisible')
 }
+
+hs.nav.addEventListener('click', () => {
+  hs.setupModal.classList.remove('invisible')
+  console.log('showing modal')
+})
 
 // -------------------------------------------------------------------------
 // HELPERS

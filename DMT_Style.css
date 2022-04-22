@@ -2,16 +2,22 @@
   --margin: 0.1rem;
   --padding: 0.2rem;
   --short: 22%;
+  --box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+    rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  --nav-height: 3rem;
 }
 
 * {
   box-sizing: border-box;
   font-family: Helvetica;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   padding: var(--padding);
 
   --grid-gap: var(--padding) calc(var(--padding));
 }
+
+/* --------------------------------------------------------- */
+/* Elements */
 
 body,
 html,
@@ -28,10 +34,27 @@ input {
   border-bottom: 1px solid lightgray;
   text-align: center;
 }
+input:disabled {
+  color: lightgray;
+  border-bottom: none;
+  background-color: white;
+}
+
+nav {
+  height: var(--nav-height);
+}
+/* --------------------------------------------------------- */
+/* Classes  */
 
 .button {
-  margin: 0px 8px;
+  --padding: 0.1rem;
+  --box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
+    rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+  margin: 0 8px;
   width: 96px;
+  background-color: azure;
+  box-shadow: var(--box-shadow);
 }
 .button:hover {
   background-color: lightgray;
@@ -40,13 +63,19 @@ input {
   background-color: gray;
 }
 
-.center_both {
-  position: relative;
-  width: fit-content;
+.card {
+  border: none;
+  border-radius: 8px 8px;
+  padding: calc(var(--padding) * 5);
+  box-shadow: var(--box-shadow);
+}
 
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+.center_both {
+  place-self: center;
+  position: relative;
+
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .center_text {
@@ -56,11 +85,15 @@ input {
   text-align: right;
 }
 
-.card {
-  border: 1px solid lightgray;
-  border-radius: 12px 12px;
-  box-shadow: gray 4px 5px;
-  padding: calc(var(--padding) * 5);
+.docked {
+  position: relative;
+  top: var(--nav-height);
+}
+
+.fixed_top {
+  position: fixed;
+  top: 0;
+  z-index: 1;
 }
 
 .grid_2,
@@ -82,13 +115,20 @@ input {
   grid-template-columns: 280px min-content min-content min-content;
 }
 
+.invisible {
+  /* display: none; */
+  transform: translateX(-100%);
+}
+
 .modal {
-  position: absolute;
+  position: fixed;
+  display: grid;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(50, 50, 50, 0.9);
+  background-color: rgba(50, 50, 50, 0.541);
   top: 0px;
   bottom: 0px;
+  transition: transform 0.5s ease-in;
 }
 
 .short {
@@ -99,13 +139,8 @@ input {
   margin-top: calc(var(--margin) * 10);
 }
 
-.visible {
-  visibility: visible;
-}
-.invisible {
-  visibility: hidden;
-}
-
+/* --------------------------------------------------------- */
+/* Colors */
 .blue {
   background-color: blue;
   color: white;
