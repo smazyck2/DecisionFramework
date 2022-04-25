@@ -38,6 +38,7 @@ hs.schedule_block.childNodes.forEach(node =>
 )
 
 // Buttons
+hs.btnDock.addEventListener('click', btnDockListener)
 hs.btnSave.addEventListener('click', btnSaveListener)
 hs.btnReset.addEventListener('click', btnResetListener)
 hs.btnHide.addEventListener('click', btnHideListener)
@@ -130,6 +131,14 @@ function recalculateBudget() {
 }
 
 // Buttons
+function btnDockListener(event) {
+  hs.setupModal.classList.toggle('docked')
+  hs.setupModal.classList.toggle('modal')
+  hs.btnDock.innerText == String.fromCharCode(10096)
+    ? (hs.btnDock.innerText = String.fromCharCode(10097))
+    : (hs.btnDock.innerText = String.fromCharCode(10096))
+}
+
 function btnSaveListener(event) {
   if (isInputsOk()) cacheValues()
 }
