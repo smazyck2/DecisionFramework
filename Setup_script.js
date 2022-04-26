@@ -134,9 +134,13 @@ function recalculateBudget() {
 function btnDockListener(event) {
   hs.setupModal.classList.toggle('docked')
   hs.setupModal.classList.toggle('modal')
-  hs.btnDock.innerText == String.fromCharCode(10096)
-    ? (hs.btnDock.innerText = String.fromCharCode(10097))
-    : (hs.btnDock.innerText = String.fromCharCode(10096))
+
+  let lArr = 0x2770,
+    rArr = 0x2771
+
+  hs.btnDock.innerText == String.fromCharCode(lArr, lArr)
+    ? (hs.btnDock.innerText = String.fromCharCode(rArr, rArr))
+    : (hs.btnDock.innerText = String.fromCharCode(lArr, lArr))
 }
 
 function btnSaveListener(event) {
