@@ -186,7 +186,7 @@ function hide() {
   hs.setupModal.classList.add('invisible')
 }
 
-hs.nav.addEventListener('click', () => {
+hs.icoSetup.addEventListener('click', () => {
   hs.setupModal.classList.remove('invisible')
   console.log('showing modal')
 })

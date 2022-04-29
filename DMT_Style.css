@@ -1,10 +1,10 @@
 :root {
   --margin: 0.1rem;
-  --padding: 0.2rem;
+  --padding: 0.15rem;
   --short: 22%;
   --box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
     rgba(0, 0, 0, 0.23) 0px 6px 6px;
-  --nav-height: 3rem;
+  /* --nav-height: 3rem; */
   --transtion_fast: 0.25s ease-in;
 }
 
@@ -26,9 +26,6 @@ section {
   margin: 0px;
   padding: 0px;
 }
-section {
-  position: absolute;
-}
 
 input {
   border: 0px;
@@ -41,10 +38,23 @@ input:disabled {
   background-color: white;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+  float: right;
+}
+ul li {
+  text-decoration: none;
+  display: inline;
+}
+
 nav {
-  height: var(--nav-height);
+  width: 100%;
+  height: max-content;
+
   display: grid;
   grid-auto-flow: column;
+  grid-template-columns: repeat(2, max-content);
 }
 
 /* --------------------------------------------------------- */
@@ -57,9 +67,6 @@ nav {
   position: absolute;
   right: 5%;
   top: 5%;
-}
-
-#evalGrid {
 }
 
 /* --------------------------------------------------------- */
@@ -105,12 +112,12 @@ nav {
 }
 
 .docked {
-  position: relative;
-  top: var(--nav-height);
+  position: absolute;
+  /* top: var(--nav-height); */
 }
 
 .fixed_top {
-  position: fixed;
+  position: sticky;
   top: 0;
   z-index: 1;
 }
@@ -133,6 +140,9 @@ nav {
 .grid_4 {
   grid-template-columns: 280px min-content min-content min-content;
 }
+.grid_right {
+  place-self: top right;
+}
 
 .invisible {
   /* display: none; */
@@ -148,6 +158,10 @@ nav {
   top: 0px;
   bottom: 0px;
   z-index: 2;
+}
+
+.parent {
+  display: grid;
 }
 
 .short {
