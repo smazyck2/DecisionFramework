@@ -133,8 +133,25 @@
 	
 			<!-- TODDO Figure out how to resize the elements -->
 			<div id="evalGrid">
-				<div class="evalGridItem">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, laborum vero sit quaerat debitis corrupti aliquid tenetur nostrum error eius?</div>
-				<div class="evalGridItem" contenteditable>2</div>
+
+				<!-- The First Factor -->
+				<div class="evalGridItem factor" data-factor="1">
+					<div type="text" class="description" contenteditable>Factor 1</div>
+					<label for="factor1_weight" class="weight">Weight</label>
+					<label for="factor1_subtotal" class="subtotal">Total Sub-factor Weights</label>
+					<input type="number" name="weight" id="factor1_weight">
+					<div class="subtotal"></div>
+					
+				</div>
+
+				<!-- The Requirements Definition -->
+				<div class="evalGridItem reqs" data-reqs="0">
+					<div class="description">Requirements</div>
+					<label for="reqs_weight">Weight</label>
+					<input type="number" name="reqs_weight" id="reqs_weight">
+				</div>
+
+
 				<div class="evalGridItem" contenteditable>3</div>
 				<div class="evalGridItem" contenteditable>4</div>
 				<div class="evalGridItem" contenteditable>5</div>

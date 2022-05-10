@@ -2,14 +2,79 @@
   display: -ms-grid;
   display: grid;
   grid-gap: 2px;
+  justify-content: start;
+  align-content: start;
 
   grid-auto-flow: column;
-  grid-template: repeat(3, auto) / repeat(3, 30ch);
+  grid-template: repeat(3, auto) / repeat(3, auto);
+
+  --number_input_size: 60px;
 }
+
+/* --- The Evaluation Grid --- */
 
 .evalGridItem {
+  overflow: hidden;
+  border: 1px solid black;
+  min-width: 30ch;
+  min-height: max-content;
+
+  display: grid;
+  grid-gap: 2px;
+  grid-auto-flow: column;
+  resize: none;
 }
 
-#evalGrid :nth-child(2n) {
-  background-color: lightgoldenrodyellow;
+/* TODO -- Javascript that makes the selected */
+/* TODO -- 'evalGridItem'resizable */
+
+.evalGridItem:hover {
+  resize: both;
+}
+
+/* --- Evaluation Factors --- */
+
+.factor {
+  grid-template-rows: 1fr auto auto;
+  grid-template-columns: 1fr var(--number_input_size);
+}
+
+.factor .description {
+  grid-column: span 2;
+
+  display: grid;
+  place-items: center;
+  align-content: center;
+
+  text-align: center;
+}
+
+div[data-factor='1'] {
+  grid-row-start: 2;
+  /* background-color: hsl(313, 100%, 50%); */
+}
+
+/* --- Requirement Factor --- */
+
+.reqs {
+  display: grid;
+  grid-template: 1fr auto / 1fr 60px;
+}
+
+.reqs .description {
+  grid-column: span 2;
+
+  display: grid;
+  place-items: center;
+}
+
+/* --- LIPSTICK --- */
+
+/* Makes editable Divs look like input boxes */
+[contenteditable] {
+  border-bottom: 1px solid lightgray;
+}
+
+label {
+  text-align: right;
 }
