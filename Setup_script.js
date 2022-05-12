@@ -43,6 +43,8 @@ hs.btnSave.addEventListener('click', btnSaveListener)
 hs.btnReset.addEventListener('click', btnResetListener)
 hs.btnHide.addEventListener('click', btnHideListener)
 
+hs.icoSetup.addEventListener('click', icoSetupListener)
+
 // -------------------------------------------------------------------------
 // LISTENERS
 
@@ -156,6 +158,14 @@ function btnHideListener(event) {
   if (isInputsOk()) hide()
 }
 
+function icoSetupListener(event) {
+  if (hs.setupModal.classList.contains('invisible')) {
+    show()
+  } else {
+    hide()
+  }
+}
+
 // -------------------------------------------------------------------------
 // VALIDATION AND DATA
 
@@ -186,10 +196,10 @@ function hide() {
   hs.setupModal.classList.add('invisible')
 }
 
-hs.icoSetup.addEventListener('click', () => {
+function show() {
   hs.setupModal.classList.remove('invisible')
   console.log('showing modal')
-})
+}
 
 // -------------------------------------------------------------------------
 // HELPERS

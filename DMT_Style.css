@@ -27,6 +27,14 @@ section {
   padding: 0px;
 }
 
+img:hover {
+  box-shadow: 0px 0px 6px white;
+}
+img:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0px 0px 6px green;
+}
+
 input {
   border: 0px;
   border-bottom: 1px solid lightgray;
@@ -117,6 +125,7 @@ nav {
 }
 
 .fixed_top {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1;
