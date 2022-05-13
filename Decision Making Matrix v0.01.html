@@ -30,9 +30,12 @@
 			<!-- <div id="setupModal" class="docked"> -->
 			<div id="setupModal" class="docked invisible">
 				<div id="setup" class="card center_both white">
-					<button id="btnDock" class="center_text button white">&#x2771;&#x2771;</button>
+					
 					<!-- Decision Constraints -->
-					<div class="center_text"><b>Evaluation Setup</b></div>
+					<div class="center_text">
+						<b>Evaluation Setup</b>
+						<span id="btnDock" class="center_text button white">&#x2771;&#x2771;</span>
+					</div>
 					<div class="grid_2">
 						<span class="right_text">Budget ($K): </span>
 						<input type="number" id="iptConstraintsBudget" class="short" required value="97">
@@ -136,12 +139,11 @@
 
 				<!-- The First Factor -->
 				<div class="evalGridItem factor" data-factor="1">
-					<textarea class="description" contenteditable placeholder="Factor Title"></textarea>
-					<label for="factor1_weight" class="weight">Weight</label>
+					<div class="factor-description" contenteditable placeholder="Factor Title"></div>
+					<label for="weight_factor1" class="weight">Weight</label>
 					<label for="factor1_subtotal" class="subtotal">Total Sub-factor Weights</label>
-					<input type="number" name="weight" id="factor1_weight">
+					<input type="number" name="weight" id="weight_factor1">
 					<div class="subtotal"></div>
-					
 				</div>
 
 				<!-- The Requirements Definition -->
@@ -151,13 +153,26 @@
 					<input type="number" name="reqs_weight" id="reqs_weight">
 				</div>
 
+				<!-- TODO Need to fix word wrap issue -->
+				<div class="evalGridItem column_header" contenteditable>3</div>
 
-				<div class="evalGridItem" contenteditable>3</div>
-				<div class="evalGridItem subfactor" contenteditable>Subfactor 1</div>
-				<div class="evalGridItem subfactor" contenteditable>SubFactor 2</div>
+				<div class="evalGridItem subfactor">
+					<div class="subfactor-description" contenteditable placeholder="subfactor 1"></div>	
+					<label for="weight_sf1" class="subtotal">Sub-factor Weights</label>
+					<input type="text" name="weight" id="weight_sf1">
+				</div>
+				<div class="evalGridItem subfactor">
+					<div class="subfactor-description" contenteditable placeholder="subfactor 1"></div>	
+					<label for="weight_sf2" class="subtotal">Sub-factor Weights</label>
+					<input type="text" name="weight" id="weight_sf2">
+				</div>				
 				<div class="evalGridItem" contenteditable>6</div>
-				<div class="evalGridItem" contenteditable>7</div>
-				<div class="evalGridItem" contenteditable>8</div>
+				<div class="evalGridItem placeholder" contenteditable placeholder="Alternative 1"></div>
+				<div class="evalGridItem subfactor">
+					<div class="subfactor-description" contenteditable placeholder="subfactor 56"></div>	
+					<label for="weight_sf3" class="subtotal">Sub-factor Weights</label>
+					<input type="text" name="weight" id="weight_sf3">
+				</div>
 			</div>
 		</section>
 	</div>

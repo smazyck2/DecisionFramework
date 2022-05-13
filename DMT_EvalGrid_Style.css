@@ -11,15 +11,36 @@
   --number_input_size: 60px;
 }
 
+/* --- Elements ---*/
+/* Makes editable Divs look like input boxes */
+[contenteditable] {
+  border-bottom: 1px solid lightgray;
+}
+
+[placeholder]:empty::before {
+  content: attr(placeholder) ' ';
+  color: lightblue;
+}
+
+label {
+  text-align: right;
+}
+
+textarea {
+  resize: none;
+}
+
 /* --- The Evaluation Grid --- */
+/* .column_header {
+  resize: horizontal;
+  overflow: hidden;
+} */
 
 .evalGridItem {
-  min-width: 30ch;
-  min-height: 1fr;
+  min-width: 25ch;
 
-  display: grid;
+  display: grid; /* all grid items are grids */
   grid-gap: 2px;
-  grid-auto-flow: column;
 
   border: 1px solid black;
 }
@@ -32,6 +53,7 @@
 .factor {
   grid-template-rows: 1fr auto auto;
   grid-template-columns: 1fr var(--number_input_size);
+  grid-auto-flow: column;
 }
 
 .factor[data-factor='1'] {
@@ -39,22 +61,26 @@
   grid-row-end: span 2;
 }
 
-.factor .description {
+.factor-description {
   grid-column: span 2;
-  height: 1fr;
-  resize: none;
-
-  display: grid;
-  place-items: center;
-  align-content: center;
+  height: max(1fr, max-content);
+  overflow: auto;
+  word-wrap: break-word;
 
   text-align: center;
 }
 
 .subfactor {
-  resize: vertical;
+  /* resize: vertical; */
   overflow: auto;
-  min-height: 50px;
+  min-height: 75px;
+  height: min(1fr, 100%);
+
+  grid-auto-flow: row;
+  grid-template-rows: 1fr auto auto;
+}
+.subfactor-description {
+  align-self: bottom;
 }
 
 /* --- Requirement Factor --- */
@@ -69,15 +95,4 @@
 
   display: grid;
   place-items: center;
-}
-
-/* --- LIPSTICK --- */
-
-/* Makes editable Divs look like input boxes */
-[contenteditable] {
-  border-bottom: 1px solid lightgray;
-}
-
-label {
-  text-align: right;
 }
