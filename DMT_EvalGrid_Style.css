@@ -45,9 +45,6 @@ textarea {
   border: 1px solid black;
 }
 
-/* TODO -- Javascript that makes the selected */
-/* TODO -- 'evalGridItem'resizable */
-
 /* --- User-defined Factors --- */
 
 .factor {
@@ -65,7 +62,6 @@ textarea {
   grid-column: span 2;
   height: max(1fr, max-content);
   overflow: auto;
-  word-wrap: break-word;
 
   text-align: center;
 }
