@@ -9,17 +9,19 @@
   grid-template: repeat(4, auto) / repeat(3, auto);
 
   --number_input_size: 60px;
+  --eval-grid-gap: 2px;
 }
 
 /* --- Elements ---*/
 /* Makes editable Divs look like input boxes */
 [contenteditable] {
   border-bottom: 1px solid lightgray;
+  width: min(max-content, 100%);
 }
 
 [placeholder]:empty::before {
   content: attr(placeholder) ' ';
-  color: lightblue;
+  color: lightgray;
 }
 
 label {
@@ -31,16 +33,21 @@ textarea {
 }
 
 /* --- The Evaluation Grid --- */
-/* .column_header {
+.column-header {
+  min-width: 25ch;
+
   resize: horizontal;
   overflow: hidden;
-} */
+
+  text-align: center;
+}
 
 .evalGridItem {
   min-width: 25ch;
+  width: 35ch;
 
   display: grid; /* all grid items are grids */
-  grid-gap: 2px;
+  grid-gap: var(--eval-grid-gap);
 
   border: 1px solid black;
 }
@@ -54,7 +61,6 @@ textarea {
 }
 
 .factor[data-factor='1'] {
-  grid-row-start: 2;
   grid-row-end: span 2;
 }
 
@@ -67,7 +73,6 @@ textarea {
 }
 
 .subfactor {
-  /* resize: vertical; */
   overflow: auto;
   min-height: 75px;
   height: min(1fr, 100%);

@@ -137,37 +137,46 @@
 			<!-- TODDO Figure out how to resize the elements -->
 			<div id="evalGrid">
 
+				<!-- Factors -->
+				<div class="column-header" data-column="factor">header 0</div>
+
 				<!-- The First Factor -->
-				<div class="evalGridItem factor" data-factor="1">
+				<div class="evalGridItem factor" data-column="factor"  data-factor="1">
 					<div class="factor-description" contenteditable placeholder="Factor Title"></div>
-					<label for="weight_factor1" class="weight">Weight</label>
+					<label for="weight_factor1" class="weight">Factor Weight</label>
 					<label for="factor1_subtotal" class="subtotal">Total Sub-factor Weights</label>
 					<input type="number" name="weight" id="weight_factor1">
 					<div class="subtotal"></div>
 				</div>
 
 				<!-- The Requirements Definition -->
-				<div class="evalGridItem reqs" data-reqs="0">
+				<div class="evalGridItem reqs" data-reqs="0" data-column="factor">
 					<div class="description">Requirements</div>
 					<label for="reqs_weight">Weight</label>
 					<input type="number" name="reqs_weight" id="reqs_weight">
 				</div>
 
-				<!-- TODO Need to fix word wrap issue -->
-				<div class="evalGridItem column_header" contenteditable>3</div>
+				<!-- Subfactors -->
+				<div class="column-header" data-column="subfactor">header 1</div>
 
-				<div class="evalGridItem subfactor">
+				<!-- The First Subfactor -->
+				<div class="evalGridItem subfactor" data-column="subfactor">
 					<div class="subfactor-description" contenteditable placeholder="subfactor 1"></div>	
 					<label for="weight_sf1" class="subtotal">Sub-factor Weights</label>
 					<input type="text" name="weight" id="weight_sf1">
 				</div>
-				<div class="evalGridItem subfactor">
-					<div class="subfactor-description" contenteditable placeholder="subfactor 1"></div>	
+
+				<!-- The Second Subfactor -->
+				<div class="evalGridItem subfactor" data-column="subfactor">
+					<div class="subfactor-description" contenteditable placeholder="subfactor 2"></div>	
 					<label for="weight_sf2" class="subtotal">Sub-factor Weights</label>
 					<input type="text" name="weight" id="weight_sf2">
-				</div>				
-				<div class="evalGridItem" contenteditable>6</div>
-				<div class="evalGridItem placeholder" contenteditable placeholder="Alternative 1"></div>
+				</div>
+
+				<div class="evalGridItem" data-column="subfactor">6</div>
+
+				<!-- Alternatives -->
+				<div class="evalGridItem column-header" data-column="alternative" contenteditable placeholder="Alternative 1"></div>
 				<div class="evalGridItem subfactor">
 					<div class="subfactor-description" contenteditable placeholder="subfactor 56"></div>	
 					<label for="weight_sf3" class="subtotal">Sub-factor Weights</label>
@@ -178,5 +187,6 @@
 	</div>
 
 	<script src="Setup_script.js"></script>
+	<script src="eval_script.js"></script>
 </body>
 </html>
