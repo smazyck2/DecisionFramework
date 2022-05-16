@@ -1,14 +1,6 @@
 'use strict'
 
-var resizeSample = 10
-
 const resizeObserver = new ResizeObserver(entries => {
-  if (resizeSample - 1 == 0) {
-    resizeSample = 10
-    console.log(resizeSample)
-    return
-  }
-
   entries.forEach(entry => {
     // console.log(entry)
 
