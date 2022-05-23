@@ -24,9 +24,9 @@ allHeaders.forEach(element => {
 })
 
 /// TEST -- Changing the grid size using custom property
-$('weight_f1').addEventListener('click', evetn => {
-  $('evalGrid').style.setProperty('--num_subfactors', 1)
-})
+// $('weight_f1').addEventListener('click', evetn => {
+//   $('evalGrid').style.setProperty('--num_subfactors', 1)
+// })
 
 // TODO -- Add/Remove factors
 // TODO -- Add/Remove subfactors

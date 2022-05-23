@@ -67,6 +67,11 @@ textarea {
   
   display: grid;
   grid-template-columns: auto 60px auto;
+  text-align: right;
+}
+
+.weight input {
+  text-align: right;
 }
 
 /* --- Factors and Subfactors --- */
