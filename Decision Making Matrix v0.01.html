@@ -19,15 +19,14 @@
 			<img id="icoSetup" src="res\setup_ico.png" alt="Show Seteup Screen" >
 			<menu type="toolbar grid_right">
 				<ul>
-				<li><a href="#">Item 1</a></li>
-				<li><a href="#">Item 2</a></li>
-				<li><a href="#">Item 3</a></li>
+				<li><a href="#">Save</a></li>
+				<li><a href="#">Load</a></li>
+				<li><a href="#">Reset</a></li>
 			</ul>
 		</menu>
 		</nav>
 	
 		<section>
-			<!-- <div id="setupModal" class="docked"> -->
 			<div id="setupModal" class="docked invisible">
 				<div id="setup" class="card center_both white">
 					
@@ -137,62 +136,93 @@
 			<!-- TODDO Figure out how to resize the elements -->
 			<div id="evalGrid">
 
-				<!-- Factors -->
-				<div class="column-header" data-column="factor">header 0</div>
+				<!-- ------------------------------------------------------------------------- -->
+				<!-- FACTORS -->
+				<div class="column-header" data-column="factor">Factors</div>
 
 				<!-- The First Factor -->
-				<div class="evalGridItem factor" data-column="factor"  data-factor="1">
+				<div class="evalGridItem factor" data-column="factor" data-factor="1">
 					<div class="factor-description" contenteditable 
-						placeholder="Factor Title"
+						placeholder="Factor 1 Description"
 					></div>
-					<label for="weight_factor1" class="weight">Factor Weight</label>
-					<label for="factor1_subtotal" class="subtotal">Total Sub-factor Weights</label>
-					<input type="number" name="weight" id="weight_factor1">
-					<div class="subtotal"></div>
+					<div class="weight">
+						<label for="weight_f1">Factor Weight</label>
+						<input type="number" name="weight_f1" id="weight_f1">
+						%
+					</div>
+					<div class="weight">
+						<label for="weight_total_f1">Total Subfactor Weight</label>
+						<input type="number" name="weight_total_f1" id="weight_total_f1">
+						%
+					</div>
 				</div>
 
-				<!-- The Requirements Definition -->
+				<!-- REQUIREMENTS -->
 				<div class="evalGridItem reqs" data-reqs="0" data-column="factor">
 					<div class="description">Requirements</div>
-					<label for="reqs_weight">Weight</label>
-					<input type="number" name="reqs_weight" id="reqs_weight">
+					<div class="weight">
+						<label for="weight_reqs">Weight</label>
+						<input type="number" name="weight_reqs" id="weight_reqs">
+						%
+					</div>
 				</div>
 
-				<!-- Subfactors -->
-				<div class="column-header" data-column="subfactor">header 1</div>
+				<!-- SECURITY -->
+
+				<!-- SCHEDULE -->
+
+				<!-- COST -->
+
+				<!-- AFFORDABILITY -->
+
+				<!-- VALUE -->
+
+				<!-- COST-EFFECTIVENESS -->
+
+				<!-- ------------------------------------------------------------------------- -->
+				<!-- SUBFACTORS -->
+				<div class="column-header" data-column="subfactor">Subfactors</div>
 
 				<!-- The First Subfactor -->
 				<div class="evalGridItem subfactor" data-column="subfactor">
 					<div class="subfactor-description" contenteditable 
-						placeholder="subfactor 1"
-					></div>	
-					<label for="weight_sf1" class="subtotal">Sub-factor Weights</label>
-					<input type="text" name="weight" id="weight_sf1">
+						placeholder="Subfactor 1 Description"
+					></div>
+					<div class="weight">
+						<label for="weight_sf1">Weight</label>
+						<input type="number" name="weight_sf1" id="weight_sf1">
+						%
+					</div>
 				</div>
 
 				<!-- The Second Subfactor -->
 				<div class="evalGridItem subfactor" data-column="subfactor">
 					<div class="subfactor-description" contenteditable 
-						placeholder="subfactor 2"
+						placeholder="Subfactor 2 Description"
 					></div>	
-					<label for="weight_sf2" class="subtotal">Sub-factor Weights</label>
-					<input type="text" name="weight" id="weight_sf2">
+					<div class="weight">
+						<label for="weight_sf2">Weight</label>
+						<input type="number" name="weight_sf2" id="weight_sf2">
+						%
+					</div>	
 				</div>
 
-				<div class="evalGridItem" data-column="subfactor">6</div>
+				<!-- Requirements -->
+				<div class="evalGridItem" data-column="subfactor"></div>
 
-				<!-- Alternatives -->
-				<div class="evalGridItem column-header" 
-					data-column="alternative" contenteditable 
-					placeholder="Alternative 1"
-				></div>
+				<!-- ALTERNATIVES -->
+				<!-- <div class="evalGridItem column-header" data-column="alternative">
+					<div data-column="alternative" contenteditable 
+						placeholder="Alternative 1"
+					></div>
+				</div>
 				<div class="evalGridItem subfactor" data-column="alternative">
 					<div class="alternative" contenteditable 
-					placeholder="subfactor 56"
-				></div>	
+						placeholder="subfactor 56"
+					></div>	
 					<label for="weight_sf3" class="subtotal">Sub-factor Weights</label>
 					<input type="text" name="weight" id="weight_sf3">
-				</div>
+				</div> -->
 			</div>
 		</section>
 	</div>
