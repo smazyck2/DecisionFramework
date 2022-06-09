@@ -132,8 +132,10 @@
 					</div>
 				</div>
 			</div>
-	
-			<!-- TODDO Figure out how to resize the elements -->
+
+			<!-- ------------------------------------------------------------------------- -->
+			<!-- EVALUATION GRID -->
+
 			<div id="evalGrid">
 
 				<!-- ------------------------------------------------------------------------- -->
@@ -210,19 +212,28 @@
 				<!-- Requirements -->
 				<div class="evalGridItem" data-column="subfactor"></div>
 
+				<!-- ------------------------------------------------------------------------- -->
 				<!-- ALTERNATIVES -->
-				<!-- <div class="evalGridItem column-header" data-column="alternative">
-					<div data-column="alternative" contenteditable 
-						placeholder="Alternative 1"
+				<div class="column-header alternative" data-column="alternative">Alternative</div>
+
+				<div class="evalGridItem evaluation" 
+					data-column="alternative" 
+					data-alternative="1"
+					data-factor="1"
+					data-subfactor="1"
+					placeholder="Comments"
+					>
+					<div class="comment" 
+						contenteditable 
+						placeholder="comments"
 					></div>
+					
+					<input type="number" placeholder="score" name="comment_alt1_f1_sf1">
 				</div>
-				<div class="evalGridItem subfactor" data-column="alternative">
-					<div class="alternative" contenteditable 
-						placeholder="subfactor 56"
-					></div>	
-					<label for="weight_sf3" class="subtotal">Sub-factor Weights</label>
-					<input type="text" name="weight" id="weight_sf3">
-				</div> -->
+
+				<div class="evalGridItem evaluation" data-column="alternative" data-alternative="1">
+					evaluation2</div>
+				<div class="evalGridItem evaluation" data-column="alternative" data-alternative="1">evaluation3</div>
 			</div>
 		</section>
 	</div>

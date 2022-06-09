@@ -11,10 +11,12 @@
   justify-content: start;
   align-content: start;
 
-  grid-auto-flow: column;
-  grid-template: 
-    repeat(calc(var(--num_subfactors) + 2), auto) / 
+  grid-template:
+    repeat(calc(var(--num_subfactors) + 2), auto) /
     repeat(calc(var(--num_alternatives) + 2), auto);
+  grid-auto-flow: column;
+  grid-auto-rows: auto;
+  grid-auto-columns: auto;
 }
 
 /* --- Elements ---*/
@@ -23,6 +25,7 @@
   border-bottom: 1px solid lightgray;
   width: min(max-content, 100%);
   outline: none;
+  overflow-wrap: anywhere;
 }
 
 [placeholder]:empty::before {
@@ -32,10 +35,6 @@
 
 label {
   text-align: right;
-}
-
-textarea {
-  resize: none;
 }
 
 /* --- The Evaluation Grid --- */
@@ -55,16 +54,20 @@ textarea {
   min-width: 185px;
 }
 
+.column-header[data-column='alternative'] {
+  min-width: 185px;
+}
+
 .evalGridItem {
   display: grid; /* all grid items are grids */
   grid-gap: var(--eval-grid-gap);
 
-  border: 1px solid lightgrey;
+  outline: 1px solid lightgrey;
 }
 
 .weight {
   place-self: end end;
-  
+
   display: grid;
   grid-template-columns: auto 60px auto;
   text-align: right;
@@ -83,12 +86,11 @@ textarea {
 }
 
 .factor[data-factor='1'] {
+  /*  */
   grid-row-end: span 2;
 }
 
 .factor-description {
-  overflow: auto;
-
   text-align: center;
 }
 
@@ -106,7 +108,7 @@ textarea {
 }
 
 .subfactor input {
-  width: var(number_input_size);
+  width: var(--number_input_size);
 }
 
 /* --- Requirement Factor --- */
@@ -120,7 +122,19 @@ textarea {
   text-align: center;
 }
 
-/* --- Alternatives ---/
+/* --- Alternatives --- */
 
+.evaluation {
+  grid-template-rows: 2;
+}
 
+.comment {
+  grid-column: 1 / -1;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
 
+.score {
+  grid-row: 2 / 3;
+  grid-column: 1;
+}
