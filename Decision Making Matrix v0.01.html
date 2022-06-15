@@ -170,16 +170,44 @@
 				</div>
 
 				<!-- SECURITY -->
-
+				<div class="evalGridItem sec" data-sec="0" data-column="factor">
+					<div class="description">Security</div>
+					<div class="weight">
+						<label for="weight_sec">Weight</label>
+						<input type="number" name="weight_sec" id="weight_sec">
+						%
+					</div>
+				</div>
+				
 				<!-- SCHEDULE -->
+				<div class="evalGridItem sched" data-sched="0" data-column="factor">
+					<div class="description">Schedule</div>
+					<div class="weight">
+						<label for="weight_sched">Weight</label>
+						<input type="number" name="weight_sched" id="weight_sched">
+						%
+					</div>
+				</div>
 
 				<!-- COST -->
+				<div class="evalGridItem center" data-sec="0" data-column="factor">
+					Cost
+				</div>
 
 				<!-- AFFORDABILITY -->
+				<div class="evalGridItem center" data-sec="0" data-column="factor"
+					>Affordability					
+				</div>
 
 				<!-- VALUE -->
+				<div class="evalGridItem center" data-ce="0" data-column="factor"
+					>Value
+				</div>
 
 				<!-- COST-EFFECTIVENESS -->
+				<div class="evalGridItem center" data-ce="0" data-column="factor"
+					>Cost Effectiveness
+				</div>
 
 				<!-- ------------------------------------------------------------------------- -->
 				<!-- SUBFACTORS -->
@@ -209,21 +237,44 @@
 					</div>	
 				</div>
 
-				<!-- Requirements -->
-				<div class="evalGridItem" data-column="subfactor"></div>
+				<!-- Requirements Subfactor -->
+				<div class="evalGridItem block" data-column="subfactor"></div>
+				
+				<!-- Security Subfactor -->
+				<div class="evalGridItem block"  data-column="subfactor">
+
+				</div>
+
+				<!-- Schedule Subfactor -->
+				<div class="evalGridItem block" data-column="subfactor"></div>
+				
+				<!-- Cost Subfactor -->
+				<div class="evalGridItem block"  data-column="subfactor"></div>
+
+				<!-- Affordability Subfactor -->
+				<div class="evalGridItem block" data-column="subfactor"></div>
+
+				<!-- Value Subfactor -->
+				<div class="evalGridItem block" data-column="subfactor"></div>
+
+				<!-- Cost-Effectiveness Subfactor -->
+				<div class="evalGridItem block" data-column="subfactor"></div>
 
 				<!-- ------------------------------------------------------------------------- -->
 				<!-- ALTERNATIVES -->
-				<div class="column-header alternative" data-column="alternative">Alternative</div>
+				<div class="column-header alternative" 
+					data-column="alternative"
+					placeholder="Alternative 1"
+				></div>
 
+				<!-- Factor 1, Subfactor 1 -->
 				<div class="evalGridItem evaluation" 
 					data-column="alternative" 
 					data-alternative="1"
 					data-factor="1"
 					data-subfactor="1"
 					placeholder="Comments"
-					>
-					<div class="comment" 
+					><div class="comment" 
 						contenteditable 
 						placeholder="comments"
 					></div>
@@ -231,9 +282,29 @@
 					<input type="number" placeholder="score" name="comment_alt1_f1_sf1">
 				</div>
 
-				<div class="evalGridItem evaluation" data-column="alternative" data-alternative="1">
-					evaluation2</div>
-				<div class="evalGridItem evaluation" data-column="alternative" data-alternative="1">evaluation3</div>
+				<!-- Factor 1, Subfactor 2 -->
+				<div class="evalGridItem evaluation" 
+					data-column="alternative" 
+					data-alternative="1"
+					data-factor="1"
+					data-subfactor="2"
+					placeholder="Comments"
+					><div class="comment" 
+						contenteditable 
+						placeholder="comments"
+					></div>
+					
+					<input type="number" placeholder="score" name="comment_alt1_f1_sf1">
+				</div>
+
+				<div class="evalGridItem req-eval"></div>
+
+				<!-- Security Evaluation -->
+				<div class="evalGridItem sec-eval">
+					<div class="choice">H</div>
+					<div class="choice">M</div>
+					<div class="choice">L</div>
+				</div>
 			</div>
 		</section>
 	</div>

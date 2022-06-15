@@ -12,7 +12,7 @@
   align-content: start;
 
   grid-template:
-    repeat(calc(var(--num_subfactors) + 2), auto) /
+    repeat(calc(var(--num_subfactors) + 8), auto) /
     repeat(calc(var(--num_alternatives) + 2), auto);
   grid-auto-flow: column;
   grid-auto-rows: auto;
@@ -25,12 +25,13 @@
   border-bottom: 1px solid lightgray;
   width: min(max-content, 100%);
   outline: none;
-  overflow-wrap: anywhere;
+
+  overflow-wrap: anywhere; /* text wrapping/breakpoint */
 }
 
-[placeholder]:empty::before {
-  content: attr(placeholder) ' ';
-  color: lightgray;
+[placeholder]:not(input):empty::before {
+  content: attr(placeholder);
+  color: lightslategray;
 }
 
 label {
@@ -38,6 +39,10 @@ label {
 }
 
 /* --- The Evaluation Grid --- */
+
+.block {
+  background-color: lightgray;
+}
 
 .column-header {
   resize: horizontal;
@@ -62,7 +67,13 @@ label {
   display: grid; /* all grid items are grids */
   grid-gap: var(--eval-grid-gap);
 
-  outline: 1px solid lightgrey;
+  outline: 1px solid gray;
+  outline-offset: 0px;
+}
+
+.evalGridItem:not(.block) {
+  /* solid (white) hides overlapping (outlines) */
+  background-color: white;
 }
 
 .weight {
@@ -77,6 +88,7 @@ label {
   text-align: right;
 }
 
+/* --------------------------------- */
 /* --- Factors and Subfactors --- */
 
 .factor {
@@ -111,7 +123,7 @@ label {
   width: var(--number_input_size);
 }
 
-/* --- Requirement Factor --- */
+/* --- Requirements ---*/
 
 .reqs {
   display: grid;
@@ -122,6 +134,26 @@ label {
   text-align: center;
 }
 
+/* --- Schedule and Security --- */
+
+.sched,
+.sec {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.sec .description,
+.sched .description {
+  text-align: center;
+}
+
+/* --- Other Factors ---*/
+
+.center {
+  place-items: center;
+}
+
+/* ------------------------------- */
 /* --- Alternatives --- */
 
 .evaluation {
@@ -137,4 +169,24 @@ label {
 .score {
   grid-row: 2 / 3;
   grid-column: 1;
+}
+
+/* ------------------------------- */
+/* --- Evaluations --- */
+
+.sec-eval {
+  text-align: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-content: space-around;
+  justify-content: space-around;
+  gap: 8px;
+}
+
+.choice {
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.choice:hover {
+  outline: 1px solid gray;
 }
