@@ -191,12 +191,12 @@
 
 				<!-- COST -->
 				<div class="evalGridItem center" data-sec="0" data-column="factor">
-					Cost
+					Cost ($K)
 				</div>
 
 				<!-- AFFORDABILITY -->
 				<div class="evalGridItem center" data-sec="0" data-column="factor"
-					>Affordability					
+					>Affordability (Budget &ge; Cost)					
 				</div>
 
 				<!-- VALUE -->
@@ -206,7 +206,7 @@
 
 				<!-- COST-EFFECTIVENESS -->
 				<div class="evalGridItem center" data-ce="0" data-column="factor"
-					>Cost Effectiveness
+					>Cost Effectiveness (Value / Cost)
 				</div>
 
 				<!-- ------------------------------------------------------------------------- -->
@@ -279,7 +279,7 @@
 						placeholder="comments"
 					></div>
 					
-					<input type="number" placeholder="score" name="comment_alt1_f1_sf1">
+					<input type="number" placeholder="score" id="comment_alt1_f1_sf1">
 				</div>
 
 				<!-- Factor 1, Subfactor 2 -->
@@ -294,10 +294,23 @@
 						placeholder="comments"
 					></div>
 					
-					<input type="number" placeholder="score" name="comment_alt1_f1_sf1">
+					<input type="number" placeholder="score" id="comment_alt1_f1_sf2">
 				</div>
 
-				<div class="evalGridItem req-eval"></div>
+				<!-- Requirements Evaluation  -->
+				<div class="evalGridItem evaluation" 
+					data-column="alternative" 
+					data-alternative="1"
+					data-factor="1"
+					data-subfactor="2"
+					placeholder="Comments"
+					><div class="comment" 
+						contenteditable 
+						placeholder="comments"
+					></div>
+					
+					<input type="number" placeholder="score" id="comment_alt1_reqs">
+				</div>
 
 				<!-- Security Evaluation -->
 				<div class="evalGridItem sec-eval">
@@ -305,6 +318,37 @@
 					<div class="choice">M</div>
 					<div class="choice">L</div>
 				</div>
+
+				<!-- Schedule Evalution -->
+				<div class="evalGridItem center"
+					data-column="alternative" 
+					data-alternative="1"
+					data-factor="schedule"
+				>
+				<div>
+					<input type="number" id="months_alt1" placeholder="months" class="short">months
+				</div>	
+					<div>
+						Score<div id="score_sched_alt1" class="center_text"></div>
+					</div>
+				</div>
+				
+				<!-- Cost Evalution -->
+				<div class="evalGridItem center"
+					data-column="alternative" 
+					data-alternative="1"
+					data-factor="cost"
+				>
+					<div>
+						$<input type="text" id="cost_alt1" placeholder="Cost" class="short">
+					</div>	
+				</div>
+
+				<!-- Affordability Evaluation -->
+
+				<!-- Value Evaluation -->
+
+				<!-- Cost Evaluation -->
 			</div>
 		</section>
 	</div>

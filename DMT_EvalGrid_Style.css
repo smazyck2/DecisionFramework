@@ -5,6 +5,10 @@
   --num_subfactors: 2;
   --num_alternatives: 0;
 
+  --placeholder_color: lightgray;
+
+  margin: 8px;
+
   display: -ms-grid;
   display: grid;
   grid-gap: var(--eval-grid-gap);
@@ -29,9 +33,13 @@
   overflow-wrap: anywhere; /* text wrapping/breakpoint */
 }
 
+::placeholder {
+  color: var(--placeholder_color);
+}
+
 [placeholder]:not(input):empty::before {
   content: attr(placeholder);
-  color: lightslategray;
+  color: var(--placeholder_color);
 }
 
 label {
