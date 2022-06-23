@@ -8,6 +8,7 @@
     rgba(0, 0, 0, 0.24) 0px 1px 2px;
   /* --nav-height: 3rem; */
   --transtion_fast: 0.25s ease-in;
+  --focus_outline_color: blue;
 }
 
 * {
@@ -158,9 +159,6 @@ nav {
 }
 .grid_4 {
   grid-template-columns: 280px min-content min-content min-content;
-}
-.grid_right {
-  place-self: top right;
 }
 
 .invisible {

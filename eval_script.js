@@ -6,15 +6,15 @@ const resizeObserver = new ResizeObserver(entries => {
     // console.log(entry)
 
     let column = entry.target.dataset.column
-    console.log(column + ' resizing')
+    // console.log(column + ' resizing')
 
     let columnWidth = entry.contentRect.width
-    console.log(columnWidth)
+    // console.log(columnWidth)
 
     $qAll($('evalGrid'), `[data-column=${column}]`).forEach(col => {
       col.style.width = +columnWidth + 'px'
     })
-    console.log(column)
+    // console.log(column)
   })
 })
 
@@ -22,6 +22,18 @@ var allHeaders = $qAll($('evalGrid'), '.column-header')
 allHeaders.forEach(element => {
   resizeObserver.observe(element)
 })
+
+// SHOW AND STORE CHOICE FOR SECURITY
+var securityChoices = $qAll($('evalGrid'), '.choice')
+securityChoices.forEach(element =>
+  element.addEventListener('click', event => {
+    securityChoices.forEach(choice =>
+      choice.classList.remove('security_selected')
+    )
+    element.classList.add('security_selected')
+    console.log('selected')
+  })
+)
 
 /// TEST -- Changing the grid size using custom property
 // $('weight_f1').addEventListener('click', evetn => {

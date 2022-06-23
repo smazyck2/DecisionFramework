@@ -149,7 +149,7 @@
 					></div>
 					<div class="weight">
 						<label for="weight_subfactors_f1">Total Subfactor Weight</label>
-						<input type="number" name="weight_subfactors" id="weight_subfactors_f1" disabled>
+						<div name="weight_subfactors" id="weight_subfactors_f1"></div>
 						%
 					</div>
 					<div class="weight">
@@ -265,6 +265,7 @@
 				<div class="column-header alternative" 
 					data-column="alternative"
 					placeholder="Alternative 1"
+					contenteditable="true"
 				></div>
 
 				<!-- Factor 1, Subfactor 1 -->
@@ -279,7 +280,10 @@
 						placeholder="comments"
 					></div>
 					
-					<input type="number" placeholder="score" id="comment_alt1_f1_sf1">
+					<input type="number" 
+						id="score_alt1_f1_sf1" 
+						class="short_input" 
+						placeholder="score">
 				</div>
 
 				<!-- Factor 1, Subfactor 2 -->
@@ -294,7 +298,10 @@
 						placeholder="comments"
 					></div>
 					
-					<input type="number" placeholder="score" id="comment_alt1_f1_sf2">
+					<input type="number" 
+						id="score_alt1_f1_sf2" 
+						class="short_input" 
+						placeholder="score">
 				</div>
 
 				<!-- Requirements Evaluation  -->
@@ -309,7 +316,10 @@
 						placeholder="comments"
 					></div>
 					
-					<input type="number" placeholder="score" id="comment_alt1_reqs">
+					<input type="number" 
+						id="score_alt1_reqs" 
+						class="short_input" 
+						placeholder="score">
 				</div>
 
 				<!-- Security Evaluation -->
@@ -325,11 +335,14 @@
 					data-alternative="1"
 					data-factor="schedule"
 				>
-				<div>
-					<input type="number" id="months_alt1" placeholder="months" class="short">months
-				</div>	
 					<div>
-						Score<div id="score_sched_alt1" class="center_text"></div>
+						<input type="number" 
+							id="months_alt1" 
+							placeholder="months" 
+							class="short_input">months
+					</div>	
+					<div>
+						Score: <span id="score_sched_alt1">10</span>
 					</div>
 				</div>
 				
@@ -340,15 +353,30 @@
 					data-factor="cost"
 				>
 					<div>
-						$<input type="text" id="cost_alt1" placeholder="Cost" class="short">
+						$<input type="text" 
+							id="cost_alt1" 
+							placeholder="Cost" 
+							class="short_input">
 					</div>	
 				</div>
 
 				<!-- Affordability Evaluation -->
+				<div class="evalGridItem center" 
+					data-alternative="1" 
+					data-factor="affordability"
+				>&#10003</div>
 
 				<!-- Value Evaluation -->
+				<div class="evalGridItem center" 
+					data-alternative="1" 
+					data-factor="value"
+				>0.000</div>
 
-				<!-- Cost Evaluation -->
+				<!-- Cost-Effectiveness Evaluation -->
+				<div class="evalGridItem center" 
+					data-alternative="1" 
+					data-factor="value"
+				>0.000</div>
 			</div>
 		</section>
 	</div>

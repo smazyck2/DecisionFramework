@@ -27,7 +27,6 @@
 /* Makes editable Divs look like input boxes */
 [contenteditable] {
   border-bottom: 1px solid lightgray;
-  width: min(max-content, 100%);
   outline: none;
 
   overflow-wrap: anywhere; /* text wrapping/breakpoint */
@@ -116,13 +115,12 @@ label {
 
 .subfactor {
   overflow: auto;
-  height: min(1fr, 100%);
 
   grid-template-rows: 1fr auto;
 }
 
 .subfactor-description {
-  align-self: bottom;
+  align-self: center;
 
   text-align: center;
 }
@@ -164,8 +162,16 @@ label {
 /* ------------------------------- */
 /* --- Alternatives --- */
 
+.short_input {
+  width: 90px;
+  place-self: end center;
+}
+
+/* ------------------------------- */
+/* --- Evaluations --- */
+
 .evaluation {
-  grid-template-rows: 2;
+  grid-template-rows: 1fr auto;
 }
 
 .comment {
@@ -173,14 +179,6 @@ label {
   width: 100%;
   overflow-wrap: anywhere;
 }
-
-.score {
-  grid-row: 2 / 3;
-  grid-column: 1;
-}
-
-/* ------------------------------- */
-/* --- Evaluations --- */
 
 .sec-eval {
   text-align: center;
@@ -197,4 +195,8 @@ label {
 
 .choice:hover {
   outline: 1px solid gray;
+}
+
+.security_selected {
+  background-color: lightgrey;
 }
