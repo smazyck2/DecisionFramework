@@ -143,13 +143,17 @@
 				<div class="column-header" data-column="factor">Factors</div>
 
 				<!-- The First Factor -->
-				<div class="evalGridItem factor" data-column="factor" data-factor="1">
-					<div class="factor-description" contenteditable 
+				<div class="evalGridItem factor" 
+					data-column="factor" 
+					data-factor="1"
+				>
+					<div class="factor-description" 
+						contenteditable 
 						placeholder="Factor 1 Description"
 					></div>
 					<div class="weight">
-						<label for="weight_subfactors_f1">Total Subfactor Weight</label>
-						<div name="weight_subfactors" id="weight_subfactors_f1"></div>
+						<label for="weights_subfactors_f1">Total Subfactor Weight</label>
+						<div name="weight_subfactors" id="weights_f1_subfactors"></div>
 						%
 					</div>
 					<div class="weight">
@@ -160,8 +164,11 @@
 				</div>
 
 				<!-- REQUIREMENTS -->
-				<div class="evalGridItem reqs" data-reqs="0" data-column="factor">
-					<div class="description">Requirements</div>
+				<div class="evalGridItem reqs" 
+					data-reqs="0" 
+					data-column="factor"
+				>
+					<div class="factor-description">Requirements</div>
 					<div class="weight">
 						<label for="weight_reqs">Weight</label>
 						<input type="number" name="weight_reqs" id="weight_reqs">
@@ -170,8 +177,11 @@
 				</div>
 
 				<!-- SECURITY -->
-				<div class="evalGridItem sec" data-sec="0" data-column="factor">
-					<div class="description">Security</div>
+				<div class="evalGridItem sec" 
+					data-sec="0" 
+					data-column="factor"
+				>
+					<div class="factor-description">Security</div>
 					<div class="weight">
 						<label for="weight_sec">Weight</label>
 						<input type="number" name="weight_sec" id="weight_sec">
@@ -180,8 +190,11 @@
 				</div>
 				
 				<!-- SCHEDULE -->
-				<div class="evalGridItem sched" data-sched="0" data-column="factor">
-					<div class="description">Schedule</div>
+				<div class="evalGridItem sched" 
+					data-sched="0" 
+					data-column="factor"
+				>
+					<div class="factor-description">Schedule</div>
 					<div class="weight">
 						<label for="weight_sched">Weight</label>
 						<input type="number" name="weight_sched" id="weight_sched">
@@ -190,23 +203,41 @@
 				</div>
 
 				<!-- COST -->
-				<div class="evalGridItem center" data-sec="0" data-column="factor">
-					Cost ($K)
+				<div class="evalGridItem center" 
+					data-cost="0" 
+					data-column="factor"
+				>
+					<div>
+						<b class="factor-description">Cost </b>($K)
+					</div>
 				</div>
 
 				<!-- AFFORDABILITY -->
-				<div class="evalGridItem center" data-sec="0" data-column="factor"
-					>Affordability (Budget &ge; Cost)					
+				<div class="evalGridItem center" 
+					data-aff="0"
+					data-column="factor"
+				>
+					<div>
+						<b class="factor-description">Affordability </b>(Budget &ge; Cost)
+					</div>				
 				</div>
 
 				<!-- VALUE -->
-				<div class="evalGridItem center" data-ce="0" data-column="factor"
-					>Value
+				<div class="evalGridItem center" 
+					data-val="0" 
+					data-column="factor"
+				>
+					<b class="factor-description">Value</b>
 				</div>
 
 				<!-- COST-EFFECTIVENESS -->
-				<div class="evalGridItem center" data-ce="0" data-column="factor"
-					>Cost Effectiveness (Value / Cost)
+				<div class="evalGridItem center" 
+					data-ce="0" 
+					data-column="factor"
+				>
+					<div>
+						<b class="factor-description">Cost Effectiveness</b> (Value / Cost)
+					</div>
 				</div>
 
 				<!-- ------------------------------------------------------------------------- -->
@@ -214,25 +245,35 @@
 				<div class="column-header" data-column="subfactor">Subfactors</div>
 
 				<!-- The First Subfactor -->
-				<div class="evalGridItem subfactor" data-column="subfactor">
-					<div class="subfactor-description" contenteditable 
+				<div class="evalGridItem subfactor" 
+					data-column="subfactor" 
+					data-factor="1"
+					data-subfactor="1"
+				>
+					<div class="subfactor-description" 
+						contenteditable 
 						placeholder="Subfactor 1 Description"
 					></div>
 					<div class="weight">
-						<label for="weight_sf1">Weight</label>
-						<input type="number" name="weight_sf1" id="weight_sf1">
+						<label for="weight_f1_sf1">Weight</label>
+						<input type="number" name="weight_f1_sf1" id="weight_f1_sf1">
 						%
 					</div>
 				</div>
 
 				<!-- The Second Subfactor -->
-				<div class="evalGridItem subfactor" data-column="subfactor">
-					<div class="subfactor-description" contenteditable 
+				<div class="evalGridItem subfactor" 
+					data-column="subfactor"
+					data-factor="1"
+					data-subfactor="2"
+				>
+					<div class="subfactor-description" 
+						contenteditable 
 						placeholder="Subfactor 2 Description"
 					></div>	
 					<div class="weight">
-						<label for="weight_sf2">Weight</label>
-						<input type="number" name="weight_sf2" id="weight_sf2">
+						<label for="weight_f1_sf2">Weight</label>
+						<input type="number" name="weight_f1_sf2" id="weight_f1_sf2">
 						%
 					</div>	
 				</div>
@@ -241,9 +282,7 @@
 				<div class="evalGridItem block" data-column="subfactor"></div>
 				
 				<!-- Security Subfactor -->
-				<div class="evalGridItem block"  data-column="subfactor">
-
-				</div>
+				<div class="evalGridItem block"  data-column="subfactor"></div>
 
 				<!-- Schedule Subfactor -->
 				<div class="evalGridItem block" data-column="subfactor"></div>
@@ -275,7 +314,8 @@
 					data-factor="1"
 					data-subfactor="1"
 					placeholder="Comments"
-					><div class="comment" 
+				>
+					<div class="comment" 
 						contenteditable 
 						placeholder="comments"
 					></div>
@@ -293,7 +333,8 @@
 					data-factor="1"
 					data-subfactor="2"
 					placeholder="Comments"
-					><div class="comment" 
+				>
+					<div class="comment" 
 						contenteditable 
 						placeholder="comments"
 					></div>
@@ -308,10 +349,10 @@
 				<div class="evalGridItem evaluation" 
 					data-column="alternative" 
 					data-alternative="1"
-					data-factor="1"
-					data-subfactor="2"
+					data-factor="reqs"
 					placeholder="Comments"
-					><div class="comment" 
+				>
+					<div class="comment" 
 						contenteditable 
 						placeholder="comments"
 					></div>
@@ -324,9 +365,9 @@
 
 				<!-- Security Evaluation -->
 				<div class="evalGridItem sec-eval">
-					<div class="choice">H</div>
-					<div class="choice">M</div>
-					<div class="choice">L</div>
+					<div class="choice" data-color="red">H</div>
+					<div class="choice" data-color="yellow">M</div>
+					<div class="choice" data-color="green">L</div>
 				</div>
 
 				<!-- Schedule Evalution -->
@@ -339,10 +380,11 @@
 						<input type="number" 
 							id="months_alt1" 
 							placeholder="months" 
-							class="short_input">months
+							class="short_input"
+						>months
 					</div>	
 					<div>
-						Score: <span id="score_sched_alt1">10</span>
+						Score: <span id="score_sched_alt1">0</span>
 					</div>
 				</div>
 				

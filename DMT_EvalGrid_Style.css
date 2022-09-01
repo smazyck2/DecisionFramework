@@ -89,10 +89,18 @@ label {
   display: grid;
   grid-template-columns: auto 60px auto;
   text-align: right;
+  align-items: end;
 }
 
 .weight input {
   text-align: right;
+}
+
+.weight label {
+  color: brown;
+  font-style: italic;
+  font-size: 0.85em;
+  line-height: 1em;
 }
 
 /* --------------------------------- */
@@ -111,6 +119,7 @@ label {
 
 .factor-description {
   text-align: center;
+  font-weight: bold;
 }
 
 .subfactor {
@@ -180,6 +189,7 @@ label {
   overflow-wrap: anywhere;
 }
 
+/* --- Security Evaluation --- */
 .sec-eval {
   text-align: center;
   grid-template-columns: 1fr 1fr 1fr;
@@ -191,12 +201,9 @@ label {
 .choice {
   padding: 4px 0;
   cursor: pointer;
+  border-radius: 8px 8px;
 }
 
 .choice:hover {
-  outline: 1px solid gray;
-}
-
-.security_selected {
-  background-color: lightgrey;
+  outline: 1px solid darkslategray;
 }

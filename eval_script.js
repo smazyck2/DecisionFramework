@@ -24,16 +24,28 @@ allHeaders.forEach(element => {
 })
 
 // SHOW AND STORE CHOICE FOR SECURITY
+var securitySelection = 'nothing selected'
 var securityChoices = $qAll($('evalGrid'), '.choice')
 securityChoices.forEach(element =>
   element.addEventListener('click', event => {
-    securityChoices.forEach(choice =>
-      choice.classList.remove('security_selected')
-    )
-    element.classList.add('security_selected')
-    console.log('selected')
+    securityChoices.forEach(choice => {
+      choice.style.background = 'none'
+    })
+    element.style.backgroundColor = element.dataset.color
+    securitySelection = element.textContent // H, M, L
+    console.log('selected: ' + securitySelection)
   })
 )
+
+// COST
+var cost = 0
+$('cost_alt1').addEventListener('input', event => {
+  var value = event.target.value
+  console.log(value)
+
+  var isNumber = !isNaN(value.replaceAll(',', ''))
+  console.log('isNumber: ' + isNumber)
+})
 
 /// TEST -- Changing the grid size using custom property
 // $('weight_f1').addEventListener('click', evetn => {
