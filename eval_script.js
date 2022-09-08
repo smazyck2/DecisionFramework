@@ -53,6 +53,13 @@ $('cost_alt1').addEventListener('input', event => {
 // })
 
 // TODO -- Add/Remove factors
+// ADD FACTORS
+// -- Create and Add a Factor
+
+// -- Create and Add a Sub-factor for the new Factor
+
+// -- Create and Add Evaluation Rows for each Alternative
+
 // TODO -- Add/Remove subfactors
 // TODO -- Add/Remove alternatives
 
