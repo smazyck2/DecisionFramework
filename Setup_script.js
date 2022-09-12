@@ -167,11 +167,45 @@ function icoSetupListener(event) {
 }
 
 // -------------------------------------------------------------------------
-// VALIDATION AND DATA
+// INPUT AND DATA VALIDATION
 
 // Input Validation
 function isInputsOk() {
   return true
+}
+
+// TODO -- Fix this mess for Firefox .... holds value of empty string or number
+// Allow only numbers or decimals
+$qAll(document, 'input[type=number]').forEach(input => {
+  // input.addEventListener('mouseenter', removeCommas)
+  // input.addEventListener('blur', showCommas)
+  input.addEventListener('beforeinput', storeOldValue)
+  input.addEventListener('input', cleanInput)
+  console.log('running the numbers')
+})
+
+var oldValue
+function storeOldValue(event) {
+  oldValue = event.target.value
+  console.log('old value: ' + oldValue)
+}
+
+function cleanInput(event) {
+  var value = event.target.value
+  console.log(value)
+  console.log('inputs text: ' + event.target.innerText)
+
+  if (value === '') {
+    isNumber = false
+    console.log('value was empty string')
+    value = ''
+  } else {
+    isNumber = !!value || isNaN(value)
+  }
+  console.log(isNumber)
+
+  if (!isNumber) event.target.value = value // else the new value remains
+  console.log(event.target.value)
 }
 
 // Caching and Restoring Values
@@ -191,6 +225,8 @@ function restoreValues() {
 
 // -------------------------------------------------------------------------
 // UI FUNCTIONS
+
+// Hide and show the setup interface
 function hide() {
   console.log('closing')
   hs.setupModal.classList.add('invisible')
@@ -201,8 +237,16 @@ function show() {
   console.log('showing modal')
 }
 
+// Disable number scrolling when number inputs have the focus
+document.addEventListener('wheel', event => {
+  if (document.activeElement.type === 'number') {
+    document.activeElement.blur()
+  }
+})
+
 // -------------------------------------------------------------------------
 // HELPERS
+
 function $(id) {
   return document.getElementById(id)
 }

@@ -45,7 +45,6 @@ input:disabled {
   border-bottom: none;
   background-color: white;
 }
-
 /* Disable spinners on input[type=number] */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -54,10 +53,12 @@ input::-webkit-inner-spin-button {
   appearance: none;
   margin: 0;
 }
-
 /* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
+}
+input:focus {
+  outline: none;
 }
 
 ul {
@@ -74,6 +75,9 @@ nav {
   width: 100%;
   height: max-content;
   padding: var(--padding);
+  z-index: 10;
+  position: sticky;
+  top: 0;
 
   display: grid;
   grid-gap: var(--padding);

@@ -38,14 +38,6 @@ securityChoices.forEach(element =>
 )
 
 // COST
-var cost = 0
-$('cost_alt1').addEventListener('input', event => {
-  var value = event.target.value
-  console.log(value)
-
-  var isNumber = !isNaN(value.replaceAll(',', ''))
-  console.log('isNumber: ' + isNumber)
-})
 
 /// TEST -- Changing the grid size using custom property
 // $('weight_f1').addEventListener('click', evetn => {

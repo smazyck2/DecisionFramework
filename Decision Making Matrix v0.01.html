@@ -47,17 +47,17 @@
 						<b>General Rating Scale</b>
 						<b>Ratings</b>
 						<span class="blue">Maximum Rating =</span>
-						<input type="Number" id="iptMaxGeneralRating" class="short" value="10">
+						<input type="number" id="iptMaxGeneralRating" class="short" value="10">
 						<span class="blue">Significantly Exceeds Expectations &ge;</span>
-						<input type="Number" id="iptBlueGeneralRating" class="short" value="9">
+						<input type="number" id="iptBlueGeneralRating" class="short" value="9">
 						<span class="teal">Exceeds Expectations &ge;</span>
-						<input type="Number" id="iptTealGeneralRating" class="short" value="7">
+						<input type="number" id="iptTealGeneralRating" class="short" value="7">
 						<span class="green">Acceptable &ge;</span>
-						<input type="Number" id="iptGreenGeneralRating" class="short" value="4">
+						<input type="number" id="iptGreenGeneralRating" class="short" value="4">
 						<span class="yellow">Deficient &ge;</span>
-						<input type="Number" id="iptYellowGeneralRating" class="short" value="2">
+						<input type="number" id="iptYellowGeneralRating" class="short" value="2">
 						<span class="red">Significantly Deficient &ge;</span>
-						<input type="Number" id="iptRedGeneralRating" class="short" value="0">
+						<input type="number" id="iptRedGeneralRating" class="short" value="0">
 					</div>
 				
 					<!-- Schedule Scale -->
@@ -67,24 +67,24 @@
 						<b><input type="radio" id="useSchedulePercent" name="months" checked> % Delay</b>
 						
 						<span class="blue">Significantly Early &le;</span>
-						<input type="Number" id="iptBlueScheduleRating" class="short month" disabled>
-						<input type="Number" id="iptBluePercent" class="short" min="-100" value="-20">
+						<input type="number" id="iptBlueScheduleRating" class="short month" disabled>
+						<input type="number" id="iptBluePercent" class="short" min="-100" value="-20">
 							
 						<span class="teal">Early &le;</span>
-						<input type="Number" id="iptTealScheduleRating" class="short month" disabled>
-						<input type="Number" id="iptTealPercent" class="short" value="-10">
+						<input type="number" id="iptTealScheduleRating" class="short month" disabled>
+						<input type="number" id="iptTealPercent" class="short" value="-10">
 							
 						<span class="green">Acceptable &le;</span>
-						<input type="Number" id="iptGreenScheduleRating" class="short month" disabled>
-						<input type="Number" id="iptGreenPercent" class="short" value="5">
+						<input type="number" id="iptGreenScheduleRating" class="short month" disabled>
+						<input type="number" id="iptGreenPercent" class="short" value="5">
 							
 						<span class="yellow">Late &le;</span>
-						<input type="Number" id="iptYellowScheduleRating" class="short month" disabled>
-						<input type="Number" id="iptYellowPercent" class="short" value="10">
+						<input type="number" id="iptYellowScheduleRating" class="short month" disabled>
+						<input type="number" id="iptYellowPercent" class="short" value="10">
 							
 						<span class="red">Too Late &gt;</span>
-						<input type="Number" id="iptRedScheduleRating" class="short month" disabled>
-						<input type="Number" id="iptRedPercent" class="short" value="10" disabled>
+						<input type="number" id="iptRedScheduleRating" class="short month" disabled>
+						<input type="number" id="iptRedPercent" class="short" value="10" disabled>
 					</div>
 				
 					<!-- Affordability -->
@@ -95,18 +95,18 @@
 						<b>Symbols</b>
 						
 						<span class="green">Affordable  &le;</span>
-						<input type="Number" id="iptGreenAffordRating" class="short" disabled>
-						<input type="Number" id="iptGreenAffordPercent" class="short" value="5">
+						<input type="number" id="iptGreenAffordRating" class="short" disabled>
+						<input type="number" id="iptGreenAffordPercent" class="short" value="5">
 						&#10003
 						
 						<span class="yellow">Budget Risk &le;</span>
-						<input type="Number" id="iptYellowAffordRating" class="short" disabled>
-						<input type="Number" id="iptYellowAffordPercent" class="short" value="10">
+						<input type="number" id="iptYellowAffordRating" class="short" disabled>
+						<input type="number" id="iptYellowAffordPercent" class="short" value="10">
 						?
 						
 						<span class="red">Unaffordable &gt;</span>
-						<input type="Number" id="iptRedAffordRating" class="short" disabled>
-						<input type="Number" id="iptRedAffordPercent" class="short" value="10" disabled>
+						<input type="number" id="iptRedAffordRating" class="short" disabled>
+						<input type="number" id="iptRedAffordPercent" class="short" value="10" disabled>
 						X
 					</div>
 					
@@ -398,7 +398,8 @@
 						$<input type="text" 
 							id="cost_alt1" 
 							placeholder="Cost" 
-							class="short_input">
+							class="short_input"
+							>
 					</div>	
 				</div>
 
