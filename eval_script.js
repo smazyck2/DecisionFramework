@@ -29,9 +29,9 @@ var securityChoices = $qAll($('evalGrid'), '.choice')
 securityChoices.forEach(element =>
   element.addEventListener('click', event => {
     securityChoices.forEach(choice => {
-      choice.style.background = 'none'
+      choice.classList.remove(`${choice.dataset.color}`)
     })
-    element.style.backgroundColor = element.dataset.color
+    element.classList.add(`${element.dataset.color}`)
     securitySelection = element.textContent // H, M, L
     console.log('selected: ' + securitySelection)
   })
@@ -43,6 +43,27 @@ securityChoices.forEach(element =>
 // $('weight_f1').addEventListener('click', evetn => {
 //   $('evalGrid').style.setProperty('--num_subfactors', 1)
 // })
+
+// CONTEXT MENUS
+// Factors and Sub-Factors
+var context_menu_factors = $('context_menu_factors')
+$qAll(document, '.subfactor, .factor').forEach(factor => {
+  factor.addEventListener('mouseenter', event => {
+    event.target.appendChild(context_menu_factors)
+  })
+})
+
+var context_menu_alternatives = $('context_menu_alternatives')
+$qAll(document, '.alternative.column-header').forEach(header => {
+  console.log('lloping alterntives')
+  header.addEventListener('mouseenter', event => {
+    event.target.appendChild(context_menu_alternatives)
+    console.log('mouse over alternative')
+  })
+})
+
+// Alternatives
+// ! ALTERNATIVE COLUMN HEADER IS NOT RECEIVING MOUSE EVENTS!!
 
 // TODO -- Add/Remove factors
 // ADD FACTORS

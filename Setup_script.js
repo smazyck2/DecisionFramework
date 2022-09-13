@@ -175,7 +175,6 @@ function isInputsOk() {
   return true
 }
 
-// TODO -- Fix this mess for Firefox .... holds value of empty string or number
 // Allow only numbers or decimals
 $qAll(document, 'input[type=number]').forEach(input => {
   // input.addEventListener('mouseenter', removeCommas)

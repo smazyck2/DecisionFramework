@@ -77,6 +77,7 @@ nav {
   padding: var(--padding);
   position: sticky;
   top: 0;
+  z-index: 2; /* put nav on top, except when setup is modal */
 
   display: grid;
   grid-gap: var(--padding);
@@ -145,6 +146,7 @@ nav {
 
 .docked {
   position: absolute;
+  z-index: 1;
   /* top: var(--nav-height); */
 }
 
@@ -191,7 +193,7 @@ nav {
   background-color: rgba(50, 50, 50, 0.541);
   top: 0px;
   bottom: 0px;
-  z-index: 2;
+  z-index: 3; /* Put the modal on top of the nav menu */
 }
 
 .parent {
