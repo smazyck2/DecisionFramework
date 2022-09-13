@@ -191,20 +191,23 @@ function storeOldValue(event) {
 }
 
 function cleanInput(event) {
-  var value = event.target.value
-  console.log(value)
-  console.log('inputs text: ' + event.target.innerText)
+  var inputValue = event.target.value
+  console.log(inputValue)
 
-  if (value === '') {
-    isNumber = false
-    console.log('value was empty string')
-    value = ''
+  var newValue
+
+  if (oldValue != '' && inputValue == '') {
+    newValue = ''
+    event.target.value = newValue
+  } else if (!isNaN(oldValue) && inputValue == '') {
+    newValue = oldValue
+    event.target.value = newValue
   } else {
-    isNumber = !!value || isNaN(value)
+    // newValue = inputValue
   }
-  console.log(isNumber)
 
-  if (!isNumber) event.target.value = value // else the new value remains
+  console.log(`new value is: ${newValue}`)
+
   console.log(event.target.value)
 }
 

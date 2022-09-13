@@ -87,7 +87,7 @@ label {
   place-self: end end;
 
   display: grid;
-  grid-template-columns: auto 60px auto;
+  grid-template-columns: auto 7ch auto;
   text-align: right;
   align-items: end;
 }
@@ -173,6 +173,11 @@ label {
 
 .short_input {
   width: 90px;
+  place-self: end center;
+}
+
+.very_short_input {
+  width: 6ch;
   place-self: end center;
 }
 

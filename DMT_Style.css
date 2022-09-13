@@ -75,7 +75,6 @@ nav {
   width: 100%;
   height: max-content;
   padding: var(--padding);
-  z-index: 10;
   position: sticky;
   top: 0;
 
