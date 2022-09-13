@@ -132,6 +132,7 @@ function recalculateBudget() {
   }
 }
 
+// TODO - Shift Evaluation Grid over when docked setup window is shown
 // Buttons
 function btnDockListener(event) {
   hs.setupModal.classList.toggle('docked')
