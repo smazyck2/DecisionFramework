@@ -55,15 +55,59 @@ $qAll(document, '.subfactor, .factor').forEach(factor => {
 
 var context_menu_alternatives = $('context_menu_alternatives')
 $qAll(document, '.alternative.column-header').forEach(header => {
-  console.log('lloping alterntives')
+  console.log('looping alterntives')
+
   header.addEventListener('mouseenter', event => {
-    event.target.appendChild(context_menu_alternatives)
-    console.log('mouse over alternative')
+    var thisHeader = event.target
+    var thisAlternative = thisHeader.dataset.alternative
+    thisHeader.appendChild(context_menu_alternatives)
+    context_menu_alternatives.dataset.alternative = thisAlternative
+    console.log('mouse over alternative: ' + thisAlternative)
   })
 })
 
-// Alternatives
-// ! ALTERNATIVE COLUMN HEADER IS NOT RECEIVING MOUSE EVENTS!!
+// ALTERNATIVES
+// TODO -- Add/Remove alternatives
+$('context_menu_alt_new').addEventListener('click', event => {
+  var thisIndex = +event.target.parentElement.dataset.alternative
+  var newIndex = thisIndex + 1
+
+  // -------------------------------------------------------------------------
+  // Create a new header and its name
+  var newAlternative = $(`column_alt${thisIndex}`).cloneNode(false)
+  newAlternative.id = `column_alt${newIndex}`
+  newAlternative.dataset.alternative = newIndex
+
+  var newNameAlt = $(`name_alt${thisIndex}`).cloneNode(false)
+  newNameAlt.id = `name_alt${newIndex}`
+
+  newAlternative.append(newNameAlt)
+
+  // TODO -- Finish adding new subactors when a new Alternative is created
+  // -------------------------------------------------------------------------
+  // Create new factor and subfactor evaluations
+  var numFactors = $qAll(
+    document,
+    '[data-column=factor][data-factor]'
+  ).length
+  console.log(`there are ${numFactors} factors`)
+
+  var numSubFactors = $qAll(
+    document,
+    '[data-column=subfactor][data-subfactor]'
+  ).length
+  console.log(`there are ${numSubFactors} subfactors`)
+
+  for (let f = 1; f < numFactors; f++) {
+    const element = $(`eval_alt${thisIndex}_f${f}_sf${sf}`)
+    element.id = `eval_alt${0}`
+  }
+
+  // reset ids to 0th columns before cloning
+
+  $(`evalGrid`).append(newAlternative)
+  console.log(`added alt header: ${newAlternative.dataset.alternative}`)
+})
 
 // TODO -- Add/Remove factors
 // ADD FACTORS
@@ -74,7 +118,6 @@ $qAll(document, '.alternative.column-header').forEach(header => {
 // -- Create and Add Evaluation Rows for each Alternative
 
 // TODO -- Add/Remove subfactors
-// TODO -- Add/Remove alternatives
 
 // TODO -- Change order of factors
 // TODO -- Change order of subfactors

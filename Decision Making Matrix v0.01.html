@@ -307,22 +307,33 @@
 
 				<!-- ------------------------------------------------------------------------- -->
 				<!-- ALTERNATIVES -->
-				<div class="column-header alternative" data-column="alternative">
-					<div data-column="alternative"
+				<div class="column-header alternative"
+					id="column_alt1" 
+					data-column="alternative"
+					data-alternative="1"
+					>
+					<div 
+						id="name_alt1" 
+						data-alternative="1"
 						placeholder="Alternative 1"
 						contenteditable="true"
 					></div>
-					<div id="context_menu_alternatives" class="context_menu_alternatives">
-						<a href="#">&#10033</a>
-						<a href="#">&#128465;</a>
-						<a href="#">&#8593</a>
-						<a href="#">&darr;</a>
+
+					<!-- Context Menu: inital location -->
+					<div id="context_menu_alternatives" 
+						class="context_menu_alternatives"
+						data-alternative="1"
+						>
+						<a href="#" id="context_menu_alt_new">&#10033</a>
+						<a href="#" id="context_menu_alt_delete">&#128465;</a>
+						<a href="#" id="context_menu_alt_left">&lArr;</a>
+						<a href="#" id="context_menu_alt_right">&rArr;</a>
 					</div>
 				</div>
 
 				<!-- Factor 1, Subfactor 1 -->
 				<div class="evalGridItem evaluation" 
-					data-column="alternative" 
+					id="eval_alt1_f1_sf1"
 					data-alternative="1"
 					data-factor="1"
 					data-subfactor="1"
@@ -334,14 +345,13 @@
 					></div>
 					
 					<input type="number" 
-						id="score_alt1_f1_sf1" 
 						class="very_short_input" 
 						placeholder="score">
 				</div>
 
 				<!-- Factor 1, Subfactor 2 -->
 				<div class="evalGridItem evaluation" 
-					data-column="alternative" 
+					id="eval_alt1_f1_sf2"
 					data-alternative="1"
 					data-factor="1"
 					data-subfactor="2"
@@ -353,14 +363,13 @@
 					></div>
 					
 					<input type="number" 
-						id="score_alt1_f1_sf2" 
 						class="very_short_input" 
 						placeholder="score">
 				</div>
 
 				<!-- Requirements Evaluation  -->
 				<div class="evalGridItem evaluation" 
-					data-column="alternative" 
+					id="req_alt1"
 					data-alternative="1"
 					data-factor="reqs"
 					placeholder="Comments"
@@ -377,7 +386,9 @@
 				</div>
 
 				<!-- Security Evaluation -->
-				<div class="evalGridItem sec-eval">
+				<div class="evalGridItem sec-eval"
+					data-alternative="1"
+					>
 					<div class="choice" data-color="red">H</div>
 					<div class="choice" data-color="yellow">M</div>
 					<div class="choice" data-color="green">L</div>
@@ -385,7 +396,6 @@
 
 				<!-- Schedule Evalution -->
 				<div class="evalGridItem center"
-					data-column="alternative" 
 					data-alternative="1"
 					data-factor="schedule"
 				>
@@ -402,7 +412,6 @@
 				
 				<!-- Cost Evalution -->
 				<div class="evalGridItem center"
-					data-column="alternative" 
 					data-alternative="1"
 					data-factor="cost"
 				>
