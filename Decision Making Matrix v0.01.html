@@ -27,13 +27,14 @@
 		</nav>
 	
 		<section>
-			<div id="setupModal" class="docked invisible">
+			<div id="setupModal" class="docked visible">
 				<div id="setup" class="card center_both white">
 					
 					<!-- Decision Constraints -->
 					<div class="center_text">
 						<b>Evaluation Setup</b>
-						<span id="btnDock" class="center_text button white">&#x2771;&#x2771;</span>
+						<span id="btnModal" class="center_text button white">&#x2771;&#x2771;</span>
+						<span id="btnDock" class="center_text button white">Dock</span>
 					</div>
 					<div class="grid_2">
 						<span class="right_text">Budget ($K): </span>
@@ -339,12 +340,12 @@
 					data-subfactor="1"
 					placeholder="Comments"
 				>
-					<div class="comment" 
+					<textarea class="comment" id="ta" rows="1"
 						contenteditable 
 						placeholder="comments"
-					></div>
+					></textarea>
 					
-					<input type="number" 
+					<input type="number"
 						class="very_short_input" 
 						placeholder="score">
 				</div>
@@ -357,10 +358,10 @@
 					data-subfactor="2"
 					placeholder="Comments"
 				>
-					<div class="comment" 
+					<textarea class="comment"
 						contenteditable 
 						placeholder="comments"
-					></div>
+					></textarea>
 					
 					<input type="number" 
 						class="very_short_input" 

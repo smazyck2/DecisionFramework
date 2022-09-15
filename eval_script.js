@@ -109,6 +109,15 @@ $('context_menu_alt_new').addEventListener('click', event => {
   console.log(`added alt header: ${newAlternative.dataset.alternative}`)
 })
 
+$('ta').addEventListener('input', event => {
+  var ta = event.target
+
+  ta.style.height = 'auto'
+  ta.style.height = `${ta.scrollHeight + 2}px`
+})
+
+// TODO -- Change all Contenteditable DIVS into Textareas
+
 // TODO -- Add/Remove factors
 // ADD FACTORS
 // -- Create and Add a Factor
@@ -127,3 +136,28 @@ $('context_menu_alt_new').addEventListener('click', event => {
 // TODO -- Auto-calculate weight totals - error >100%, <0%
 
 // TODO -- Apply colors after scoring
+
+// TODO -- Use icons for docking and modalizing the setup form
+
+/* 
+---------------------------------------------------------------------------
+Notes for Potential Future Use.
+
+1. Here is how you can strip the rich content when pasting 
+   into a contenteditable element.
+
+    $('paste').addEventListener('paste', e => {
+      var pastedText = undefined
+      if (window.clipboardData && window.clipboardData.getData) {
+        // IE
+        pastedText = window.clipboardData.getData('Text')
+      } else if (e.clipboardData && e.clipboardData.getData) {
+        pastedText = e.clipboardData.getData('text/plain')
+      }
+      e.target.textContent = pastedText
+      e.preventDefault()
+      return false
+  })
+
+2.
+*/

@@ -6,9 +6,10 @@
     rgba(0, 0, 0, 0.23) 0px 6px 6px;
   --box-shadow-button: rgba(0, 0, 0, 0.12) 0px 1px 3px,
     rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  /* --nav-height: 3rem; */
-  --transtion_fast: 0.25s ease-in;
+  --nav-height: 90px;
+  --transition_fast: 1.25s;
   --focus_outline_color: blue;
+  --x_translate: 600px;
 }
 
 * {
@@ -21,10 +22,10 @@
 /* Elements */
 
 body,
-html,
-section {
+html {
   margin: 0;
   padding: 0;
+  overflow-y: hidden;
 }
 
 img:hover {
@@ -58,7 +59,8 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 input:focus {
-  outline: none;
+  outline: 1px solid pink;
+  outline-offset: -1px;
 }
 
 ul {
@@ -85,15 +87,41 @@ nav {
   grid-template-columns: repeat(2, max-content);
 }
 
+.parent {
+  position: relative;
+
+  /* margin: 48px; */
+
+  overflow-y: hidden;
+  display: grid;
+}
+
+section {
+  position: relative;
+  width: auto;
+  height: calc(100vh - var(--nav-height));
+
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 8px;
+  justify-content: left;
+
+  overflow-y: scroll;
+  overflow-x: auto;
+}
+
 /* --------------------------------------------------------- */
 /* IDs */
+
 #setupModal {
-  transition: transform var(--transtion_fast);
-  will-change: transition;
+  will-change: width;
 }
 
 #setupModal * {
+  transition: width 1s ease-in;
+
   padding: var(--padding);
+  margin-bottom: calc(10 * var(--margin)) 0;
 }
 
 #btnDock {
@@ -145,20 +173,17 @@ nav {
 }
 
 .docked {
-  position: absolute;
+  position: sticky;
+  left: 0;
   z-index: 1;
-  /* top: var(--nav-height); */
+}
+
+.free {
+  position: relative;
 }
 
 .evalGridItem {
   padding: var(--padding);
-}
-
-.fixed_top {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 1;
 }
 
 .grid_2,
@@ -180,24 +205,23 @@ nav {
   grid-template-columns: 280px min-content min-content min-content;
 }
 
-.invisible {
-  /* display: none; */
-  transform: translateX(-150%);
+.visible {
+}
+
+.hidden {
+  width: 0;
+  overflow-x: hidden;
 }
 
 .modal {
   position: fixed;
   display: grid;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(50, 50, 50, 0.541);
   top: 0px;
   bottom: 0px;
   z-index: 3; /* Put the modal on top of the nav menu */
-}
-
-.parent {
-  display: grid;
 }
 
 .short {

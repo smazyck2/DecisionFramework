@@ -5,8 +5,10 @@
   --num_subfactors: 2;
   --num_alternatives: 0;
 
-  --placeholder_color: lightgray;
+  --placeholder_color: gray;
+  --border_bottom: 1px solid lightgray;
 
+  position: relative;
   margin: 8px;
 
   display: -ms-grid;
@@ -21,12 +23,14 @@
   grid-auto-flow: column;
   grid-auto-rows: auto;
   grid-auto-columns: auto;
+
+  box-shadow: --box-shadow;
 }
 
 /* --- Elements ---*/
 /* Makes editable Divs look like input boxes */
 [contenteditable] {
-  border-bottom: 1px solid lightgray;
+  border-bottom: var(--border_bottom);
   outline: none;
 
   overflow-wrap: anywhere; /* text wrapping/breakpoint */
@@ -34,6 +38,7 @@
 
 ::placeholder {
   color: var(--placeholder_color);
+  font-style: italic;
 }
 
 [placeholder]:not(input):empty::before {
@@ -43,6 +48,22 @@
 
 label {
   text-align: right;
+}
+
+/* TAs work better with grid than contenteditable divs
+because CE divs break grid sizing when pasting content 
+into them */
+
+textarea {
+  resize: none;
+
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  /* Prevent the TA and scrollbars from bouncing 
+  in and out when the TA is auto-reszing  */
+  overflow-y: hidden;
 }
 
 /* --- The Evaluation Grid --- */
@@ -83,6 +104,10 @@ label {
 .evalGridItem:not(.block) {
   /* solid (white) hides overlapping (outlines) */
   background-color: white;
+}
+
+.presentation {
+  border: none;
 }
 
 .weight {

@@ -39,6 +39,7 @@ hs.schedule_block.childNodes.forEach(node =>
 
 // Buttons
 hs.btnDock.addEventListener('click', btnDockListener)
+hs.btnModal.addEventListener('click', btnModalListener)
 hs.btnSave.addEventListener('click', btnSaveListener)
 hs.btnReset.addEventListener('click', btnResetListener)
 hs.btnHide.addEventListener('click', btnHideListener)
@@ -134,16 +135,19 @@ function recalculateBudget() {
 
 // TODO - Shift Evaluation Grid over when docked setup window is shown
 // Buttons
-function btnDockListener(event) {
-  hs.setupModal.classList.toggle('docked')
+function btnModalListener(event) {
   hs.setupModal.classList.toggle('modal')
 
   let lArr = 0x2770,
     rArr = 0x2771
 
-  hs.btnDock.innerText == String.fromCharCode(lArr, lArr)
-    ? (hs.btnDock.innerText = String.fromCharCode(rArr, rArr))
-    : (hs.btnDock.innerText = String.fromCharCode(lArr, lArr))
+  hs.btnModal.innerText == String.fromCharCode(lArr, lArr)
+    ? (hs.btnModal.innerText = String.fromCharCode(rArr, rArr))
+    : (hs.btnModal.innerText = String.fromCharCode(lArr, lArr))
+}
+
+function btnDockListener(event) {
+  hs.setupModal.classList.toggle('docked')
 }
 
 function btnSaveListener(event) {
@@ -152,7 +156,6 @@ function btnSaveListener(event) {
 
 function btnResetListener(event) {
   restoreValues()
-  // hs.setupModal.classList.add('invisible')
 }
 
 function btnHideListener(event) {
@@ -160,10 +163,10 @@ function btnHideListener(event) {
 }
 
 function icoSetupListener(event) {
-  if (hs.setupModal.classList.contains('invisible')) {
-    show()
-  } else {
+  if (hs.setupModal.classList.contains('visible')) {
     hide()
+  } else {
+    show()
   }
 }
 
@@ -231,13 +234,16 @@ function restoreValues() {
 
 // Hide and show the setup interface
 function hide() {
-  console.log('closing')
-  hs.setupModal.classList.add('invisible')
+  hs.setupModal.classList.remove('visible')
+  hs.setupModal.classList.add('hidden')
+
+  console.log('hiding modal')
 }
 
 function show() {
-  hs.setupModal.classList.remove('invisible')
-  console.log('showing modal')
+  hs.setupModal.classList.remove('hidden')
+  hs.setupModal.classList.add('visible')
+  console.log('shoging setup')
 }
 
 // Disable number scrolling when number inputs have the focus
