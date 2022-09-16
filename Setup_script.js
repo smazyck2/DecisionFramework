@@ -146,10 +146,6 @@ function btnModalListener(event) {
     : (hs.btnModal.innerText = String.fromCharCode(lArr, lArr))
 }
 
-function btnDockListener(event) {
-  hs.setupModal.classList.toggle('docked')
-}
-
 function btnSaveListener(event) {
   if (isInputsOk()) cacheValues()
 }
@@ -244,6 +240,18 @@ function show() {
   hs.setupModal.classList.remove('hidden')
   hs.setupModal.classList.add('visible')
   console.log('shoging setup')
+}
+
+function btnDockListener(event) {
+  hs.setupModal.classList.toggle('docked')
+  hs.setupModal.classList.toggle('free')
+
+  var pin = '&#x1F4CC;'
+  var free = '&#x25E7;' // Black/White Box
+
+  if (hs.setupModal.classList.contains('docked'))
+    hs.btnDock.innerHTML = free
+  else hs.btnDock.innerHTML = pin
 }
 
 // Disable number scrolling when number inputs have the focus

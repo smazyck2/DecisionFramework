@@ -23,27 +23,29 @@
   grid-auto-flow: column;
   grid-auto-rows: auto;
   grid-auto-columns: auto;
-
-  box-shadow: --box-shadow;
 }
 
 /* --- Elements ---*/
+
 /* Makes editable Divs look like input boxes */
+/* overflow-wrap: anywhere --> text wrapping/breakpoint */
+/* 
 [contenteditable] {
   border-bottom: var(--border_bottom);
   outline: none;
 
-  overflow-wrap: anywhere; /* text wrapping/breakpoint */
-}
-
-::placeholder {
-  color: var(--placeholder_color);
-  font-style: italic;
-}
+  overflow-wrap: anywhere;
+} 
 
 [placeholder]:not(input):empty::before {
   content: attr(placeholder);
   color: var(--placeholder_color);
+}
+*/
+
+::placeholder {
+  color: var(--placeholder_color);
+  font-style: italic;
 }
 
 label {
@@ -64,6 +66,14 @@ textarea {
   /* Prevent the TA and scrollbars from bouncing 
   in and out when the TA is auto-reszing  */
   overflow-y: hidden;
+
+  /* Set an initial fixed height b/c FireFox
+  automatically adds extra rows to textareas */
+  height: 1.1em;
+  overflow-x: hidden;
+
+  /* border-bottom: var(--border_bottom); */
+  outline: none;
 }
 
 /* --- The Evaluation Grid --- */
@@ -76,6 +86,8 @@ textarea {
   resize: horizontal;
   overflow: hidden;
 
+  outline: 1px solid gray;
+  background-color: white;
   text-align: center;
 }
 
@@ -96,6 +108,8 @@ textarea {
 .evalGridItem {
   display: grid; /* all grid items are grids */
   grid-gap: var(--eval-grid-gap);
+
+  padding: var(--padding);
 
   outline: 1px solid gray;
   outline-offset: 0px;
@@ -155,25 +169,27 @@ textarea {
   text-decoration: none;
 }
 
+/* Show context menus on hover */
 :is(.subfactor, .factor, .alternative):hover
   :is(.context_menu, .context_menu_alternatives) {
   opacity: 100%;
 }
 
 .factor {
-  grid-template-rows: 1fr auto auto;
+  grid-template-rows: 1fr min-content min-content;
   grid-auto-flow: column;
   align-items: center;
 }
 
 .factor[data-factor='1'] {
-  /*  */
+  /* You want to span the number of subfactors */
   grid-row-end: span 2;
 }
 
 .factor-description {
   text-align: center;
   font-weight: bold;
+  place-self: center center;
 }
 
 .subfactor {

@@ -23,28 +23,17 @@ allHeaders.forEach(element => {
   resizeObserver.observe(element)
 })
 
-// SHOW AND STORE CHOICE FOR SECURITY
-var securitySelection = 'nothing selected'
-var securityChoices = $qAll($('evalGrid'), '.choice')
-securityChoices.forEach(element =>
-  element.addEventListener('click', event => {
-    securityChoices.forEach(choice => {
-      choice.classList.remove(`${choice.dataset.color}`)
-    })
-    element.classList.add(`${element.dataset.color}`)
-    securitySelection = element.textContent // H, M, L
-    console.log('selected: ' + securitySelection)
+// Resize Text Areas
+$qAll($('evalGrid'), 'textarea').forEach(textArea => {
+  textArea.addEventListener('input', event => {
+    var ta = event.target
+
+    ta.style.height = 'auto'
+    ta.style.height = `${ta.scrollHeight + 2}px`
   })
-)
+})
 
-// COST
-
-/// TEST -- Changing the grid size using custom property
-// $('weight_f1').addEventListener('click', evetn => {
-//   $('evalGrid').style.setProperty('--num_subfactors', 1)
-// })
-
-// CONTEXT MENUS
+// CONTEXT MENUS -------------------------------------------------------
 // Factors and Sub-Factors
 var context_menu_factors = $('context_menu_factors')
 $qAll(document, '.subfactor, .factor').forEach(factor => {
@@ -66,7 +55,7 @@ $qAll(document, '.alternative.column-header').forEach(header => {
   })
 })
 
-// ALTERNATIVES
+// ALTERNATIVES --------------------------------------------------------------
 // TODO -- Add/Remove alternatives
 $('context_menu_alt_new').addEventListener('click', event => {
   var thisIndex = +event.target.parentElement.dataset.alternative
@@ -84,7 +73,7 @@ $('context_menu_alt_new').addEventListener('click', event => {
   newAlternative.append(newNameAlt)
 
   // TODO -- Finish adding new subactors when a new Alternative is created
-  // -------------------------------------------------------------------------
+  // -------------------------------------------
   // Create new factor and subfactor evaluations
   var numFactors = $qAll(
     document,
@@ -109,12 +98,27 @@ $('context_menu_alt_new').addEventListener('click', event => {
   console.log(`added alt header: ${newAlternative.dataset.alternative}`)
 })
 
-$('ta').addEventListener('input', event => {
-  var ta = event.target
+// SECURITY -------------------------------------------------------
+// SHOW AND STORE CHOICE FOR SECURITY
+var securitySelection = 'nothing selected'
+var securityChoices = $qAll($('evalGrid'), '.choice')
+securityChoices.forEach(element =>
+  element.addEventListener('click', event => {
+    securityChoices.forEach(choice => {
+      choice.classList.remove(`${choice.dataset.color}`)
+    })
+    element.classList.add(`${element.dataset.color}`)
+    securitySelection = element.textContent // H, M, L
+    console.log('selected: ' + securitySelection)
+  })
+)
 
-  ta.style.height = 'auto'
-  ta.style.height = `${ta.scrollHeight + 2}px`
-})
+// COST
+
+/// TEST -- Changing the grid size using custom property
+// $('weight_f1').addEventListener('click', evetn => {
+//   $('evalGrid').style.setProperty('--num_subfactors', 1)
+// })
 
 // TODO -- Change all Contenteditable DIVS into Textareas
 

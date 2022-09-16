@@ -101,12 +101,15 @@ section {
   width: auto;
   height: calc(100vh - var(--nav-height));
 
+  margin-top: var(--margin);
+  margin-bottom: 30px;
+
   display: grid;
   grid-auto-flow: column;
   column-gap: 8px;
   justify-content: left;
 
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: auto;
 }
 
@@ -182,8 +185,10 @@ section {
   position: relative;
 }
 
-.evalGridItem {
-  padding: var(--padding);
+.free > .card {
+  outline: 1px solid darkgray;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .grid_2,

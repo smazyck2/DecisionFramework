@@ -34,8 +34,9 @@
 					<div class="center_text">
 						<b>Evaluation Setup</b>
 						<span id="btnModal" class="center_text button white">&#x2771;&#x2771;</span>
-						<span id="btnDock" class="center_text button white">Dock</span>
+						<span id="btnDock" class="center_text button white">&#x25E7;</span>
 					</div>
+
 					<div class="grid_2">
 						<span class="right_text">Budget ($K): </span>
 						<input type="number" id="iptConstraintsBudget" class="short" required value="97">
@@ -148,10 +149,9 @@
 					data-column="factor" 
 					data-factor="1"
 				>
-					<div class="factor-description" 
-						contenteditable 
+					<textarea rows="1" class="factor-description" 
 						placeholder="Factor 1 Description"
-					></div>
+					></textarea>
 					<div class="weight">
 						<label for="weights_subfactors_f1">Total Subfactor Weight</label>
 						<div name="weight_subfactors" id="weights_f1_subfactors"></div>
@@ -257,10 +257,9 @@
 					data-factor="1"
 					data-subfactor="1"
 				>
-					<div class="subfactor-description" 
-						contenteditable 
+					<textarea class="subfactor-description" 
 						placeholder="Subfactor 1 Description"
-					></div>
+					></textarea>
 					<div class="weight">
 						<label for="weight_f1_sf1">Weight</label>
 						<input type="number" name="weight_f1_sf1" id="weight_f1_sf1">
@@ -274,10 +273,9 @@
 					data-factor="1"
 					data-subfactor="2"
 				>
-					<div class="subfactor-description" 
-						contenteditable 
+					<textarea class="subfactor-description" 
 						placeholder="Subfactor 2 Description"
-					></div>	
+					></textarea>	
 					<div class="weight">
 						<label for="weight_f1_sf2">Weight</label>
 						<input type="number" name="weight_f1_sf2" id="weight_f1_sf2">
@@ -307,18 +305,19 @@
 				<div class="evalGridItem block" data-column="subfactor"></div>
 
 				<!-- ------------------------------------------------------------------------- -->
-				<!-- ALTERNATIVES -->
+				<!-- ALTERNATIVES and EVALUATIONS -->
 				<div class="column-header alternative"
 					id="column_alt1" 
 					data-column="alternative"
 					data-alternative="1"
 					>
-					<div 
+					<textarea type="text" 
 						id="name_alt1" 
 						data-alternative="1"
 						placeholder="Alternative 1"
-						contenteditable="true"
-					></div>
+						rows="1"
+						class="center_text"
+					></textarea>
 
 					<!-- Context Menu: inital location -->
 					<div id="context_menu_alternatives" 
@@ -338,10 +337,8 @@
 					data-alternative="1"
 					data-factor="1"
 					data-subfactor="1"
-					placeholder="Comments"
 				>
 					<textarea class="comment" id="ta" rows="1"
-						contenteditable 
 						placeholder="comments"
 					></textarea>
 					
@@ -356,10 +353,8 @@
 					data-alternative="1"
 					data-factor="1"
 					data-subfactor="2"
-					placeholder="Comments"
 				>
-					<textarea class="comment"
-						contenteditable 
+					<textarea class="comment" rows="1"
 						placeholder="comments"
 					></textarea>
 					
@@ -375,10 +370,9 @@
 					data-factor="reqs"
 					placeholder="Comments"
 				>
-					<div class="comment" 
-						contenteditable 
+					<textarea class="comment" rows="1"
 						placeholder="comments"
-					></div>
+					></textarea>
 					
 					<input type="number" 
 						id="score_alt1_reqs" 
