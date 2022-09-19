@@ -27,12 +27,14 @@
 		</nav>
 	
 		<section>
-			<div id="setupModal" class="docked visible">
+			<div id="setupModal" class="free hidden">
 				<div id="setup" class="card center_both white">
 					
 					<!-- Decision Constraints -->
 					<div class="center_text">
-						<b>Evaluation Setup</b>
+						<b >Evaluation Setup</b>
+					</div>
+					<div id="mnuDock">
 						<span id="btnModal" class="center_text button white">&#x2771;&#x2771;</span>
 						<span id="btnDock" class="center_text button white">&#x25E7;</span>
 					</div>
@@ -50,9 +52,9 @@
 						<b>Ratings</b>
 						<span class="blue">Maximum Rating =</span>
 						<input type="number" id="iptMaxGeneralRating" class="short" value="10">
-						<span class="blue">Significantly Exceeds Expectations &ge;</span>
+						<span class="blue">Outstanding &ge;</span>
 						<input type="number" id="iptBlueGeneralRating" class="short" value="9">
-						<span class="teal">Exceeds Expectations &ge;</span>
+						<span class="teal">Excelent &ge;</span>
 						<input type="number" id="iptTealGeneralRating" class="short" value="7">
 						<span class="green">Acceptable &ge;</span>
 						<input type="number" id="iptGreenGeneralRating" class="short" value="4">
@@ -127,10 +129,10 @@
 					
 					<!-- Buttons -->
 					<div class="top_margin center_text">
-						<button id="btnLoad" class="button card">Load</button>
-						<button id="btnReset" class="button card">Restore</button>
-						<button id="btnSave" class="card button">Save</button>
-						<button id="btnHide" class="card button">Hide</button>
+						<button id="btnLoad" class="button">Load</button>
+						<button id="btnReset" class="button">Restore</button>
+						<button id="btnSave" class="button">Save</button>
+						<button id="btnHide" class="button">Hide</button>
 					</div>
 				</div>
 			</div>
@@ -382,17 +384,19 @@
 
 				<!-- Security Evaluation -->
 				<div class="evalGridItem sec-eval"
-					data-alternative="1"
+				id="sec_alt1"	
+				data-alternative="1"
 					>
-					<div class="choice" data-color="red">H</div>
-					<div class="choice" data-color="yellow">M</div>
-					<div class="choice" data-color="green">L</div>
+					<label class="choice red" data-sel="true" data-color="red">H</label>
+					<label class="choice" data-sel data-color="yellow">M</label>
+					<label class="choice" data-sel data-color="green">L</label>
 				</div>
 
 				<!-- Schedule Evalution -->
 				<div class="evalGridItem center"
 					data-alternative="1"
 					data-factor="schedule"
+					id="sched_alt1"
 				>
 					<div>
 						<input type="number" 
@@ -409,10 +413,10 @@
 				<div class="evalGridItem center"
 					data-alternative="1"
 					data-factor="cost"
+					id="cost_alt1"
 				>
 					<div>
 						$<input type="number" 
-							id="cost_alt1" 
 							placeholder="Cost" 
 							class="short_input"
 							>
@@ -421,18 +425,21 @@
 
 				<!-- Affordability Evaluation -->
 				<div class="evalGridItem center" 
+					id="afford_alt1"
 					data-alternative="1" 
 					data-factor="affordability"
 				>&#10003</div>
 
 				<!-- Value Evaluation -->
 				<div class="evalGridItem center" 
+					id="value_alt1"
 					data-alternative="1" 
 					data-factor="value"
 				>0.000</div>
 
 				<!-- Cost-Effectiveness Evaluation -->
 				<div class="evalGridItem center" 
+				id="ce_alt1"
 					data-alternative="1" 
 					data-factor="value"
 				>0.000</div>

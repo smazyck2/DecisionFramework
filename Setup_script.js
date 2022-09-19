@@ -275,3 +275,7 @@ function $tags(elem, tag) {
 function $qAll(elem, query) {
   return elem.querySelectorAll(query)
 }
+
+function $q(elem, query) {
+  return elem.querySelector(query)
+}

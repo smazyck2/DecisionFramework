@@ -55,6 +55,116 @@ $qAll(document, '.alternative.column-header').forEach(header => {
   })
 })
 
+// EVALUATIONS --------------------------------------------------------------
+
+// Data Object Model and Its Initialization
+{
+  var DOM = {}
+
+  // Factors
+  let factors = {}
+  DOM.factors = factors
+
+  factors.numFactors = 1
+
+  let factor1 = {}
+  factors.factor1 = factor1
+
+  let parentNodeQry = '[data-factor="1"]'
+  let parentNode = $q($('evalGrid'), parentNodeQry)
+  factor1.parentNode = parentNode
+
+  let descriptionNodeQry = 'textArea'
+  let descriptionNode = $q($('evalGrid'), descriptionNodeQry)
+  factor1.descriptionNode = descriptionNode
+
+  let subfactorWeightNode = $('weights_f1_subfactors')
+  factor1.subfactorWeightNode = subfactorWeightNode
+
+  let weightNode = $('weight_f1')
+  factor1.weightNode = weightNode
+  weightNode.value = 13
+
+  // Subfactors
+  factor1.numSubFactors = 2
+
+  for (let i = 1; i <= factor1.numSubFactors; i++) {
+    factor1[`subfactor${i}`] = {}
+
+    let sfParentNodeQry = `[data-subfactor="${i}"][data-column="subfactor"]`
+    let sfParentNode = $q(document, sfParentNodeQry)
+    factor1[`subfactor${i}`].sfParentNode = sfParentNode
+
+    let descriptionNodeQry = 'textarea'
+    factor1[`subfactor${i}`].descriptionNode = $q(
+      sfParentNode,
+      descriptionNodeQry
+    )
+    factor1[`subfactor${i}`].descriptionNode.value
+
+    let sfWeightNodeQry = `[name=weight_f${i}_sf${i}]`
+    factor1[`subfactor${i}`].weightNode = $q(sfParentNode, sfWeightNodeQry)
+  }
+
+  // Other factors
+  DOM.reqsWeightNode = $('weight_reqs')
+  DOM.secWeightNode = $('weight_sec')
+
+  // Alternatives / Evaluations
+  {
+    DOM.evaluations = {}
+    DOM.evaluations.numAlternatives = 1
+
+    let alternative1 = {}
+    DOM.evaluations.alternative1 = alternative1
+
+    // Column header and description
+    alternative1.columnHeaderNode = $(`column_alt1`)
+    alternative1.description = $('name_alt1')
+
+    // Subfactor evaluations
+    for (let i = 1; i <= factors.numFactors; i++) {
+      for (let j = 1; j <= factor1.numSubFactors; j++) {
+        let evalParentNode = $(`eval_alt1_f${i}_sf${j}`)
+
+        alternative1[`evalf${i}sf${j}`] = {}
+        alternative1[`evalf${i}sf${j}`].evalParentNode = evalParentNode
+        let commentNode = $q(evalParentNode, 'textArea')
+        evalParentNode.commentNode = commentNode
+
+        let scoreNode = $q(evalParentNode, 'input')
+        evalParentNode.scoreNode = scoreNode
+      }
+    }
+
+    // Other factor Evaluations
+    let reqsParentNode = $(`req_alt1`)
+    alternative1.reqsParentNode = reqsParentNode
+    alternative1.reqsCommentsNode = $q(reqsParentNode, `textarea`)
+    alternative1.reqsScoreNode = $q(reqsParentNode, 'input')
+
+    alternative1.secParentNode = $('sec_alt1')
+
+    let schedParentNode = $('sched_alt1')
+    alternative1.schedParentNode = schedParentNode
+    alternative1.schedMonthsNode = $q(schedParentNode, 'input')
+    alternative1.schedScoreNode = $q(schedParentNode, 'span')
+
+    let costParentNode = $('cost_alt1')
+    alternative1.costParentNode = costParentNode
+    alternative1.costValue = $q(costParentNode, 'input')
+
+    let affordNode = $('afford_alt1')
+    alternative1.affordNode = affordNode
+
+    let valueNode = $('value_alt1')
+    alternative1.valueNode = valueNode
+
+    let ceNode = $('ce_alt1')
+    alternative1.ceNode = ceNode
+  }
+}
+
 // ALTERNATIVES --------------------------------------------------------------
 // TODO -- Add/Remove alternatives
 $('context_menu_alt_new').addEventListener('click', event => {
@@ -72,7 +182,7 @@ $('context_menu_alt_new').addEventListener('click', event => {
 
   newAlternative.append(newNameAlt)
 
-  // TODO -- Finish adding new subactors when a new Alternative is created
+  // TODO -- Finish adding new subfactor evals when an Alternative is added
   // -------------------------------------------
   // Create new factor and subfactor evaluations
   var numFactors = $qAll(
@@ -88,8 +198,10 @@ $('context_menu_alt_new').addEventListener('click', event => {
   console.log(`there are ${numSubFactors} subfactors`)
 
   for (let f = 1; f < numFactors; f++) {
-    const element = $(`eval_alt${thisIndex}_f${f}_sf${sf}`)
-    element.id = `eval_alt${0}`
+    {
+      const element = $(`eval_alt${thisIndex}_f${f}_sf${sf}`)
+      element.id = `eval_alt${0}`
+    }
   }
 
   // reset ids to 0th columns before cloning
@@ -100,16 +212,17 @@ $('context_menu_alt_new').addEventListener('click', event => {
 
 // SECURITY -------------------------------------------------------
 // SHOW AND STORE CHOICE FOR SECURITY
-var securitySelection = 'nothing selected'
+
 var securityChoices = $qAll($('evalGrid'), '.choice')
 securityChoices.forEach(element =>
   element.addEventListener('click', event => {
     securityChoices.forEach(choice => {
+      choice.dataset.sel = false
       choice.classList.remove(`${choice.dataset.color}`)
     })
+    element.dataset.sel = true
     element.classList.add(`${element.dataset.color}`)
-    securitySelection = element.textContent // H, M, L
-    console.log('selected: ' + securitySelection)
+    let securitySelection = element.textContent // H, M, L
   })
 )
 
