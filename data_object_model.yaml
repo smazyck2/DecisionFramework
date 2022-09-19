@@ -1,0 +1,53 @@
+---
+DOM:
+  # Factors
+  factors:
+    numFactors: 1
+    factor1:
+      parentNode: node - [data-factor="1"]
+      descriptionNode: node - textArea
+      subfactorWeightNode: weights_f1_subfactors
+      weightNode: node - weight_f1
+      numSubFactors: 2
+
+      # Subfactors
+      subfactor1:
+        sfParentNode: node - [data-subfactor="${i}"][data-column="subfactor"]
+        descriptionNode: node - textArea
+        weightNode: node - [name=weight_f${i}_sf${i}]
+      subfactor2: # repeats subfactor 1
+
+    factor2: # Repeats factor 1
+
+  # Other Factor weights
+  reqsWeightNode: node - weight_reqs
+  secWeightNode: node - weight_sec
+
+  # Evaluations / Alternatives
+  evaluations:
+    numAlternatives: 1
+    alternative1:
+      columnHeaderNode: node - column_alt1
+      description: node - name_alt1
+      evalf1sf1:
+        evalParentNode: node
+        commentNode: node - textArea
+        scoreNode: node - input
+      evalf1sf2: # repeats evalf1sf1
+
+      reqsParentNode: node - req_alt1
+      reqsCommentsNode: node - textArea
+      reqsScoreNode: node - input
+
+      secParentNode: node - sec_alt1
+
+      schedParentNode: node - sched_alt1
+      schedMonthsNode: node - input
+      schedScoreNode: node - span
+
+      costParentNode: node - cost_alt1
+      costValue: node - input
+
+      affordNode: node - afford_alt1 (div)
+      valueNode: node - value_alt1 (div)
+      ceNode: node - ce_alt1 (div)
