@@ -1,6 +1,7 @@
 'use strict'
 
 // RESIZE ITEMS -------------------------------------------------------
+// Resize Columns
 const resizeObserver = new ResizeObserver(entries => {
   entries.forEach(entry => {
     // console.log(entry)
@@ -28,8 +29,8 @@ $qAll($('evalGrid'), 'textarea').forEach(textArea => {
   textArea.addEventListener('input', event => {
     var ta = event.target
 
-    ta.style.height = 'auto'
-    ta.style.height = `${ta.scrollHeight + 2}px`
+    ta.style.height = '1.2em'
+    ta.style.height = `${ta.scrollHeight}px`
   })
 })
 
@@ -55,13 +56,12 @@ $qAll(document, '.alternative.column-header').forEach(header => {
   })
 })
 
-// EVALUATIONS --------------------------------------------------------------
-
+// DATA OBJECT MODEL ----------------------------------------------------
 // Data Object Model and Its Initialization
 {
   var DOM = {}
 
-  // Factors
+  // Factors ------------------------------------------------------------
   let factors = {}
   DOM.factors = factors
 
@@ -78,14 +78,11 @@ $qAll(document, '.alternative.column-header').forEach(header => {
   let descriptionNode = $q($('evalGrid'), descriptionNodeQry)
   factor1.descriptionNode = descriptionNode
 
-  let subfactorWeightNode = $('weights_f1_subfactors')
-  factor1.subfactorWeightNode = subfactorWeightNode
-
   let weightNode = $('weight_f1')
   factor1.weightNode = weightNode
   weightNode.value = 13
 
-  // Subfactors
+  // Subfactors --------------------------------------------------------
   factor1.numSubFactors = 2
 
   for (let i = 1; i <= factor1.numSubFactors; i++) {
@@ -100,7 +97,6 @@ $qAll(document, '.alternative.column-header').forEach(header => {
       sfParentNode,
       descriptionNodeQry
     )
-    factor1[`subfactor${i}`].descriptionNode.value
 
     let sfWeightNodeQry = `[name=weight_f${i}_sf${i}]`
     factor1[`subfactor${i}`].weightNode = $q(sfParentNode, sfWeightNodeQry)
@@ -110,7 +106,7 @@ $qAll(document, '.alternative.column-header').forEach(header => {
   DOM.reqsWeightNode = $('weight_reqs')
   DOM.secWeightNode = $('weight_sec')
 
-  // Alternatives / Evaluations
+  // Alternatives / Evaluations ----------------------------------------
   {
     DOM.evaluations = {}
     DOM.evaluations.numAlternatives = 1
@@ -120,20 +116,14 @@ $qAll(document, '.alternative.column-header').forEach(header => {
 
     // Column header and description
     alternative1.columnHeaderNode = $(`column_alt1`)
-    alternative1.description = $('name_alt1')
+    alternative1.name = $('name_alt1')
 
     // Subfactor evaluations
     for (let i = 1; i <= factors.numFactors; i++) {
       for (let j = 1; j <= factor1.numSubFactors; j++) {
         let evalParentNode = $(`eval_alt1_f${i}_sf${j}`)
 
-        alternative1[`evalf${i}sf${j}`] = {}
-        alternative1[`evalf${i}sf${j}`].evalParentNode = evalParentNode
-        let commentNode = $q(evalParentNode, 'textArea')
-        evalParentNode.commentNode = commentNode
-
-        let scoreNode = $q(evalParentNode, 'input')
-        evalParentNode.scoreNode = scoreNode
+        configSfactorEval(alternative1, i, j, evalParentNode)
       }
     }
 
@@ -165,24 +155,62 @@ $qAll(document, '.alternative.column-header').forEach(header => {
   }
 }
 
+function configSfactorEval(alternative, i, j, evalParentNode) {
+  alternative[`evalf${i}sf${j}`] = {}
+  alternative[`evalf${i}sf${j}`].evalParentNode = evalParentNode
+  let commentNode = $q(evalParentNode, 'textArea')
+  evalParentNode.commentNode = commentNode
+
+  let scoreNode = $q(evalParentNode, 'input')
+  evalParentNode.scoreNode = scoreNode
+}
+
+// EVALUATIONS --------------------------------------------------------------
+
 // ALTERNATIVES --------------------------------------------------------------
+
 // TODO -- Add/Remove alternatives
+
 $('context_menu_alt_new').addEventListener('click', event => {
   var thisIndex = +event.target.parentElement.dataset.alternative
   var newIndex = thisIndex + 1
+  var numAlternatives = ++DOM.evaluations.numAlternatives
+
+  // Increment the values for alternatives that come after the new one
+  for (let i = newIndex; i < numAlternatives; i++) {
+    // setColumnValues(i)
+    // configureAlternative(i)
+    console.log(`numAlternatives: ${numAlternatives}`, i)
+  }
 
   // -------------------------------------------------------------------------
   // Create a new header and its name
-  var newAlternative = $(`column_alt${thisIndex}`).cloneNode(false)
+
+  // can't clone column headers because of context menu
+  let newAlternative = $(`column_alt${thisIndex}`).cloneNode(false)
   newAlternative.id = `column_alt${newIndex}`
   newAlternative.dataset.alternative = newIndex
 
-  var newNameAlt = $(`name_alt${thisIndex}`).cloneNode(false)
+  let oldNameAlt = $(`name_alt${thisIndex}`)
+  oldNameAlt.id = '0'
+
+  let newNameAlt = oldNameAlt.cloneNode(false)
   newNameAlt.id = `name_alt${newIndex}`
+  oldNameAlt.id = `name_alt${thisIndex}`
 
   newAlternative.append(newNameAlt)
 
+  DOM.evaluations[`alternative${newIndex}`] = {
+    columnHeaderNode: newAlternative,
+    name: newNameAlt,
+  }
+
+  // Add the alternative column header to the eval grid
+  $(`evalGrid`).append(newAlternative)
+  console.log(`added alt header: ${newAlternative.dataset.alternative}`)
+
   // TODO -- Finish adding new subfactor evals when an Alternative is added
+
   // -------------------------------------------
   // Create new factor and subfactor evaluations
   var numFactors = $qAll(
@@ -197,20 +225,25 @@ $('context_menu_alt_new').addEventListener('click', event => {
   ).length
   console.log(`there are ${numSubFactors} subfactors`)
 
-  for (let f = 1; f < numFactors; f++) {
-    {
-      const element = $(`eval_alt${thisIndex}_f${f}_sf${sf}`)
-      element.id = `eval_alt${0}`
+  // clone multiple subfactor evals, then append them to eval grid
+  let oldSfEval = $(`eval_alt1_f1_sf1`)
+
+  // TODO - fix error with the loops
+  for (let f = 1; f <= numSubFactors; f++) {
+    console.log(DOM.factors[`factor${f}`].numSubFactors)
+
+    let numSfsInFactor = DOM.factors[`factor${f}`].numSubFactors
+
+    for (let sf = 1; sf <= numSfsInFactor; sf++) {
+      let newSfEval = oldSfEval.cloneNode(true)
+      newSfEval.id = `newId${f}_${sf}`
+
+      $('evalGrid').append(newSfEval)
     }
   }
-
-  // reset ids to 0th columns before cloning
-
-  $(`evalGrid`).append(newAlternative)
-  console.log(`added alt header: ${newAlternative.dataset.alternative}`)
 })
 
-// SECURITY -------------------------------------------------------
+// SECURITY ----------------------------------------------------------
 // SHOW AND STORE CHOICE FOR SECURITY
 
 var securityChoices = $qAll($('evalGrid'), '.choice')

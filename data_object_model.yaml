@@ -6,7 +6,6 @@ DOM:
     factor1:
       parentNode: node - [data-factor="1"]
       descriptionNode: node - textArea
-      subfactorWeightNode: weights_f1_subfactors
       weightNode: node - weight_f1
       numSubFactors: 2
 
@@ -28,7 +27,7 @@ DOM:
     numAlternatives: 1
     alternative1:
       columnHeaderNode: node - column_alt1
-      description: node - name_alt1
+      name: node - name_alt1 (name)
       evalf1sf1:
         evalParentNode: node
         commentNode: node - textArea

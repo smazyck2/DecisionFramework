@@ -1,5 +1,5 @@
 #evalGrid {
-  --number_input_size: 5ch;
+  --number_input_size: 7ch;
   --eval-grid-gap: 0px;
 
   --num_subfactors: 2;
@@ -7,6 +7,7 @@
 
   --placeholder_color: gray;
   --border_bottom: 1px solid lightgray;
+  --weight_color: brown;
 
   position: relative;
   margin: 8px;
@@ -69,10 +70,10 @@ textarea {
 
   /* Set an initial fixed height b/c FireFox
   automatically adds extra rows to textareas */
-  height: 1.1em;
+  height: 1.2em;
   overflow-x: hidden;
 
-  /* border-bottom: var(--border_bottom); */
+  border-bottom: var(--border_bottom);
   outline: none;
 }
 
@@ -134,15 +135,20 @@ textarea {
 
 .weight input {
   grid-column: 2/3;
+  color: var(--weight_color);
 
   text-align: right;
 }
 
 .weight label {
-  color: brown;
   font-style: italic;
   font-size: 0.85em;
   line-height: 1em;
+}
+
+.weight span {
+  transform: translateY(-3px);
+  color: var(--weight_color);
 }
 
 /* --------------------------------- */
