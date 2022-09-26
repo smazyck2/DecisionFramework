@@ -29,7 +29,7 @@ DOM:
       columnHeaderNode: node - column_alt1
       name: node - name_alt1 (name)
       evalf1sf1:
-        evalParentNode: node
+        evalParentNode: node - eval_alt1_f1_sf1
         commentNode: node - textArea
         scoreNode: node - input
       evalf1sf2: # repeats evalf1sf1

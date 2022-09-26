@@ -171,9 +171,42 @@ function configSfactorEval(alternative, i, j, evalParentNode) {
 
 // TODO -- Add/Remove alternatives
 
-$('context_menu_alt_new').addEventListener('click', event => {
+$('context_menu_alt_new').addEventListener('click', addNewAlternative)
+
+// SECURITY ----------------------------------------------------------
+// SHOW AND STORE CHOICE FOR SECURITY
+
+var securityChoices = $qAll($('evalGrid'), '.choice')
+configureSecurityChoices(securityChoices)
+
+function configureSecurityChoices(securityChoices) {
+  securityChoices.forEach(element =>
+    element.addEventListener('click', event => {
+      securityChoices.forEach(choice => {
+        choice.dataset.sel = false
+        choice.classList.remove(`${choice.dataset.color}`)
+      })
+      element.dataset.sel = true
+      element.classList.add(`${element.dataset.color}`)
+      let securitySelection = element.textContent // H, M, L
+    })
+  )
+}
+
+// COST
+
+/// TEST -- Changing the grid size using custom property
+// $('weight_f1').addEventListener('click', event => {
+//   $('evalGrid').style.setProperty('--num_subfactors', 1)
+// })
+
+// -------------------------------------------------------------------
+// UI
+
+function addNewAlternative(event) {
   var thisIndex = +event.target.parentElement.dataset.alternative
   var newIndex = thisIndex + 1
+
   var numAlternatives = ++DOM.evaluations.numAlternatives
 
   // Increment the values for alternatives that come after the new one
@@ -196,20 +229,21 @@ $('context_menu_alt_new').addEventListener('click', event => {
 
   let newNameAlt = oldNameAlt.cloneNode(false)
   newNameAlt.id = `name_alt${newIndex}`
+  newNameAlt.placeholder = `Alternative ${newIndex}`
   oldNameAlt.id = `name_alt${thisIndex}`
 
   newAlternative.append(newNameAlt)
 
+  // Add the alternative column header to the eval grid & DOM
   DOM.evaluations[`alternative${newIndex}`] = {
     columnHeaderNode: newAlternative,
     name: newNameAlt,
   }
 
-  // Add the alternative column header to the eval grid
+  let newDOMalternative = DOM.evaluations[`alternative${newIndex}`]
+
   $(`evalGrid`).append(newAlternative)
   console.log(`added alt header: ${newAlternative.dataset.alternative}`)
-
-  // TODO -- Finish adding new subfactor evals when an Alternative is added
 
   // -------------------------------------------
   // Create new factor and subfactor evaluations
@@ -225,46 +259,120 @@ $('context_menu_alt_new').addEventListener('click', event => {
   ).length
   console.log(`there are ${numSubFactors} subfactors`)
 
-  // clone multiple subfactor evals, then append them to eval grid
+  // clone multiple subfactor evals, then append them to eval grid & DOM
   let oldSfEval = $(`eval_alt1_f1_sf1`)
 
-  // TODO - fix error with the loops
-  for (let f = 1; f <= numSubFactors; f++) {
-    console.log(DOM.factors[`factor${f}`].numSubFactors)
+  for (let f = 1; f <= numFactors; f++) {
+    console.log('entering f loop ' + f)
 
     let numSfsInFactor = DOM.factors[`factor${f}`].numSubFactors
+    console.log(`numSfsInFactor: ${numSfsInFactor}`)
 
     for (let sf = 1; sf <= numSfsInFactor; sf++) {
-      let newSfEval = oldSfEval.cloneNode(true)
-      newSfEval.id = `newId${f}_${sf}`
+      console.log('entering sf loop ' + sf)
 
+      let newSfEval = oldSfEval.cloneNode(true)
+      newSfEval.id = `eval_alt${newIndex}_${f}_${sf}`
+
+      // append to grid & DOM
       $('evalGrid').append(newSfEval)
+
+      newDOMalternative[`evalf${f}sf${sf}`] = {
+        evalParentNode: newSfEval,
+        commentNode: $q(newSfEval, 'textarea'),
+        scoreNode: $q(newSfEval, 'input'),
+      }
     }
   }
-})
 
-// SECURITY ----------------------------------------------------------
-// SHOW AND STORE CHOICE FOR SECURITY
+  // clone requirements eval, then append to eval grid & DOM
+  let oldReqEval = $('req_alt1')
+  let newReqEval = oldReqEval.cloneNode(true)
 
-var securityChoices = $qAll($('evalGrid'), '.choice')
-securityChoices.forEach(element =>
-  element.addEventListener('click', event => {
-    securityChoices.forEach(choice => {
-      choice.dataset.sel = false
-      choice.classList.remove(`${choice.dataset.color}`)
-    })
-    element.dataset.sel = true
-    element.classList.add(`${element.dataset.color}`)
-    let securitySelection = element.textContent // H, M, L
-  })
-)
+  newReqEval.id = `req_alt${newIndex}`
+  $('evalGrid').append(newReqEval)
 
-// COST
+  newDOMalternative.reqsParentNode = newReqEval
+  newDOMalternative.reqsCommentsNode = $q(newReqEval, 'textarea')
+  newDOMalternative.reqsScoreNode = $q(newReqEval, 'input')
 
-/// TEST -- Changing the grid size using custom property
-// $('weight_f1').addEventListener('click', evetn => {
-//   $('evalGrid').style.setProperty('--num_subfactors', 1)
-// })
+  // clone security eval, then append to eval grid & DOM
+  let oldSecEval = DOM.evaluations.alternative1.secParentNode
+  let newSecEval = oldSecEval.cloneNode(true)
+
+  newSecEval.id = `sec_alt${newIndex}`
+  newSecEval.dataset.alternative = newIndex
+
+  let newSecurityChoices = $qAll(newSecEval, '.choice')
+  configureSecurityChoices(newSecurityChoices)
+
+  newDOMalternative.secParentNode = newSecEval
+  $('evalGrid').append(newSecEval)
+
+  // clone schedule eval, then append to eval grid & DOM
+  let schedParentNode =
+    DOM.evaluations.alternative1.schedParentNode.cloneNode(true)
+
+  schedParentNode.id = `sched_alt${newIndex}`
+  schedParentNode.dataset.alternative = newIndex
+
+  let schedMonthsNode = $q(schedParentNode, 'input')
+  let schedScoreNode = $q(schedParentNode, 'span')
+
+  $('evalGrid').append(schedParentNode)
+
+  newDOMalternative.schedParentNode = schedParentNode
+  newDOMalternative.schedMonthsNode = schedMonthsNode
+  newDOMalternative.schedScoreNode = schedScoreNode
+
+  // clone cost eval, then append to eval grid & DOM
+  let costParentNode =
+    DOM.evaluations.alternative1.costParentNode.cloneNode(true)
+
+  costParentNode.id = `cost_alt${newIndex}`
+  costParentNode.dataset.alternative = newIndex
+
+  let costValue = $q(costParentNode, 'input')
+
+  $('evalGrid').append(costParentNode)
+
+  newDOMalternative.costParentNode = costParentNode
+  newDOMalternative.costValue = costValue
+
+  // clone afford eval, then append to eval grid & DOM
+  let affordNode = DOM.evaluations.alternative1.affordNode.cloneNode(true)
+  affordNode.id = `afford_alt${newIndex}`
+  affordNode.dataset.alternative = newIndex
+
+  $('evalGrid').append(affordNode)
+
+  newDOMalternative.affordNode = affordNode
+
+  // clone CE eval, then append to eval grid & DOM
+  let valueNode = DOM.evaluations.alternative1.valueNode.cloneNode(true)
+  valueNode.id = `value_alt${newIndex}`
+  valueNode.dataset.alternative = newIndex
+
+  $('evalGrid').append(valueNode)
+
+  newDOMalternative.valueNode = valueNode
+
+  // clone CE eval, then append to eval grid & DOM
+  let ceNode = DOM.evaluations.alternative1.ceNode.cloneNode(true)
+  ceNode.id = `ce_alt${newIndex}`
+  ceNode.dataset.alternative = newIndex
+
+  $('evalGrid').append(ceNode)
+
+  newDOMalternative.ceNode = ceNode
+
+  newDOMalternative.valueNode.innerHTML = 34.099
+  newDOMalternative.ceNode.innerHTML = 66.099
+
+  // ---- Print the DOM
+  console.log('DOM.evaluations')
+  console.log(DOM)
+}
 
 // TODO -- Change all Contenteditable DIVS into Textareas
 
