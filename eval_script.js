@@ -19,29 +19,36 @@ const resizeObserver = new ResizeObserver(entries => {
   })
 })
 
+function resizeColumn(columnHeader) {
+  resizeObserver.observe(columnHeader)
+}
+
 var allHeaders = $qAll($('evalGrid'), '.column-header')
-allHeaders.forEach(element => {
-  resizeObserver.observe(element)
-})
+allHeaders.forEach(resizeColumn)
 
 // Resize Text Areas
-$qAll($('evalGrid'), 'textarea').forEach(textArea => {
+function resizeTextAreaOnInput(textArea) {
   textArea.addEventListener('input', event => {
     var ta = event.target
 
     ta.style.height = '1.2em'
     ta.style.height = `${ta.scrollHeight}px`
   })
-})
+}
+
+$qAll($('evalGrid'), 'textarea').forEach(resizeTextAreaOnInput)
 
 // CONTEXT MENUS -------------------------------------------------------
 // Factors and Sub-Factors
 var context_menu_factors = $('context_menu_factors')
-$qAll(document, '.subfactor, .factor').forEach(factor => {
+
+function showFactorContextMenu(factor) {
   factor.addEventListener('mouseenter', event => {
     event.target.appendChild(context_menu_factors)
   })
-})
+}
+
+$qAll(document, '.subfactor, .factor').forEach(showFactorContextMenu)
 
 var context_menu_alternatives = $('context_menu_alternatives')
 $qAll(document, '.alternative.column-header').forEach(header => {
