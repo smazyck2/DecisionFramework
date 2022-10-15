@@ -52,7 +52,7 @@ $qAll(document, '.alternative.column-header').forEach(header => {
     var thisAlternative = thisHeader.dataset.alternative
     thisHeader.appendChild(context_menu_alternatives)
     context_menu_alternatives.dataset.alternative = thisAlternative
-    console.log('mouse over alternative: ' + thisAlternative)
+    // console.log('mouse over alternative: ' + thisAlternative)
   })
 })
 
@@ -169,8 +169,6 @@ function configSfactorEval(alternative, i, j, evalParentNode) {
 
 // ALTERNATIVES --------------------------------------------------------------
 
-// TODO -- Add/Remove alternatives
-
 $('context_menu_alt_new').addEventListener('click', addNewAlternative)
 
 // SECURITY ----------------------------------------------------------
@@ -203,17 +201,52 @@ function configureSecurityChoices(securityChoices) {
 // -------------------------------------------------------------------
 // UI
 
-function addNewAlternative(event) {
-  var thisIndex = +event.target.parentElement.dataset.alternative
-  var newIndex = thisIndex + 1
+// TODO -- Add/Remove alternatives
 
-  var numAlternatives = ++DOM.evaluations.numAlternatives
+function addNewAlternative(event) {
+  let thisIndex = +event.target.parentElement.dataset.alternative
+  let newIndex = thisIndex + 1
+
+  let numAlternatives = ++DOM.evaluations.numAlternatives
+
+  console.log(`thisIndex: ${thisIndex}`)
+  console.log(`old numAlternatives: ${numAlternatives}`)
+  console.log(`thisIndex: ${thisIndex}`)
 
   // Increment the values for alternatives that come after the new one
-  for (let i = newIndex; i < numAlternatives; i++) {
-    // setColumnValues(i)
-    // configureAlternative(i)
-    console.log(`numAlternatives: ${numAlternatives}`, i)
+  for (let i = numAlternatives - 1; i > thisIndex; i--) {
+    console.log(`populating: ${i} with ${i - 1}`)
+
+    DOM.evaluations[`alternative${i}`] = {
+      ...DOM.evaluations[`alternative${i - 1}`],
+    }
+
+    setAlternativeColumnValues(DOM.evaluations[`alternative${i}`], i + 1)
+
+    console.log(`moved DOM alternative ${i - 1} to ${i}`)
+  }
+
+  function setAlternativeColumnValues(DOMAlternative, newValue) {
+    console.log(`object being changed`, DOMAlternative)
+
+    let columnHeaderNode = DOMAlternative.columnHeaderNode
+    columnHeaderNode.id = `column_alt${newValue}`
+    columnHeaderNode.dataset.alternative = newValue
+    columnHeaderNode.dataset.column = `alternative${newValue}`
+
+    let name = DOMAlternative.name
+    name.id = `name_alt${newValue}`
+    name.placeholder = `Alternative ${newValue}`
+    name.dataset.alternative = newValue
+  }
+
+  function getNumberOfFactors() {
+    return $qAll(document, '[data-column=factor][data-factor]').length
+  }
+
+  function getNumberOfSubFactors() {
+    return $qAll(document, '[data-column=subfactor][data-subfactor]')
+      .length
   }
 
   // -------------------------------------------------------------------------
@@ -223,6 +256,8 @@ function addNewAlternative(event) {
   let newAlternative = $(`column_alt${thisIndex}`).cloneNode(false)
   newAlternative.id = `column_alt${newIndex}`
   newAlternative.dataset.alternative = newIndex
+  newAlternative.dataset.column = `alternative${newIndex}`
+  resizeObserver.observe(newAlternative)
 
   let oldNameAlt = $(`name_alt${thisIndex}`)
   oldNameAlt.id = '0'
@@ -230,6 +265,7 @@ function addNewAlternative(event) {
   let newNameAlt = oldNameAlt.cloneNode(false)
   newNameAlt.id = `name_alt${newIndex}`
   newNameAlt.placeholder = `Alternative ${newIndex}`
+  newNameAlt.dataset.alternative = newIndex
   oldNameAlt.id = `name_alt${thisIndex}`
 
   newAlternative.append(newNameAlt)
@@ -247,23 +283,13 @@ function addNewAlternative(event) {
 
   // -------------------------------------------
   // Create new factor and subfactor evaluations
-  var numFactors = $qAll(
-    document,
-    '[data-column=factor][data-factor]'
-  ).length
-  console.log(`there are ${numFactors} factors`)
-
-  var numSubFactors = $qAll(
-    document,
-    '[data-column=subfactor][data-subfactor]'
-  ).length
-  console.log(`there are ${numSubFactors} subfactors`)
+  let numFactors = getNumberOfFactors()
 
   // clone multiple subfactor evals, then append them to eval grid & DOM
   let oldSfEval = $(`eval_alt1_f1_sf1`)
 
   for (let f = 1; f <= numFactors; f++) {
-    console.log('entering f loop ' + f)
+    console.log('entering factor loop ' + f)
 
     let numSfsInFactor = DOM.factors[`factor${f}`].numSubFactors
     console.log(`numSfsInFactor: ${numSfsInFactor}`)

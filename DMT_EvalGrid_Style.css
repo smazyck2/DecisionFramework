@@ -100,7 +100,7 @@ textarea {
   min-width: 195px;
 }
 
-.column-header[data-column='alternative'] {
+.column-header[data-column^='alternative'] {
   position: relative;
   z-index: 0; /* necessary: relative position > modal */
   min-width: 185px;

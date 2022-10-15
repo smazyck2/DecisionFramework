@@ -1,447 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>Decision Making Tool</title>
+    <link rel="stylesheet" type="text/css" href="DMT_Style.css" />
+    <link rel="stylesheet" type="text/css" href="DMT_EvalGrid_Style.css" />
+  </head>
 
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
-	<title>Decision Making Tool</title>
-	<link rel="stylesheet" type="text/css" href="DMT_Style.css" />
-	<link rel="stylesheet" type="text/css" href="DMT_EvalGrid_Style.css" />
-</head>
+  <!-- Do this in VS Code in DiceLab -->
 
-<!-- Do this in VS Code in DiceLab -->
+  <body>
+    <div class="parent">
+      <nav id="nav" class="teal">
+        <h1 class="center_text">Decision Making Tool</h1>
+        <img
+          id="icoSetup"
+          src="res\setup_ico.png"
+          alt="Show Seteup Screen"
+        />
+        <menu type="toolbar grid_right">
+          <ul>
+            <li><a href="#">Save</a></li>
+            <li><a href="#">Load</a></li>
+            <li><a href="#">Reset</a></li>
+          </ul>
+        </menu>
+      </nav>
 
-<body>
-	<div class="parent">
+      <section>
+        <div id="setupModal" class="free hidden">
+          <div id="setup" class="card center_both white">
+            <!-- Decision Constraints -->
+            <div class="center_text">
+              <b>Evaluation Setup</b>
+            </div>
+            <div id="mnuDock">
+              <span id="btnModal" class="center_text button white"
+                >&#x2771;&#x2771;</span
+              >
+              <span id="btnDock" class="center_text button white"
+                >&#x25E7;</span
+              >
+            </div>
 
-		<nav id="nav" class="teal">
-			<h1 class="center_text">Decision Making Tool</h1>
-			<img id="icoSetup" src="res\setup_ico.png" alt="Show Seteup Screen" >
-			<menu type="toolbar grid_right">
-				<ul>
-				<li><a href="#">Save</a></li>
-				<li><a href="#">Load</a></li>
-				<li><a href="#">Reset</a></li>
-			</ul>
-		</menu>
-		</nav>
-	
-		<section>
-			<div id="setupModal" class="free hidden">
-				<div id="setup" class="card center_both white">
-					
-					<!-- Decision Constraints -->
-					<div class="center_text">
-						<b >Evaluation Setup</b>
-					</div>
-					<div id="mnuDock">
-						<span id="btnModal" class="center_text button white">&#x2771;&#x2771;</span>
-						<span id="btnDock" class="center_text button white">&#x25E7;</span>
-					</div>
+            <div class="grid_2">
+              <span class="right_text">Budget ($K): </span>
+              <input
+                type="number"
+                id="iptConstraintsBudget"
+                class="short"
+                required
+                value="97"
+              />
+              <span class="right_text">Schedule (months): </span>
+              <input
+                type="number"
+                id="iptConstraintsSchedule"
+                class="short"
+                required
+                value="9"
+              />
+            </div>
 
-					<div class="grid_2">
-						<span class="right_text">Budget ($K): </span>
-						<input type="number" id="iptConstraintsBudget" class="short" required value="97">
-						<span class="right_text">Schedule (months): </span>
-						<input type="number" id="iptConstraintsSchedule" class="short" required value="9">
-					</div>
-				
-					<!-- General Scale -->
-					<div class="grid_2">
-						<b>General Rating Scale</b>
-						<b>Ratings</b>
-						<span class="blue">Maximum Rating =</span>
-						<input type="number" id="iptMaxGeneralRating" class="short" value="10">
-						<span class="blue">Outstanding &ge;</span>
-						<input type="number" id="iptBlueGeneralRating" class="short" value="9">
-						<span class="teal">Excelent &ge;</span>
-						<input type="number" id="iptTealGeneralRating" class="short" value="7">
-						<span class="green">Acceptable &ge;</span>
-						<input type="number" id="iptGreenGeneralRating" class="short" value="4">
-						<span class="yellow">Deficient &ge;</span>
-						<input type="number" id="iptYellowGeneralRating" class="short" value="2">
-						<span class="red">Significantly Deficient &ge;</span>
-						<input type="number" id="iptRedGeneralRating" class="short" value="0">
-					</div>
-				
-					<!-- Schedule Scale -->
-					<div id="schedule_block" class="grid_3">
-						<b>Schedule Rating Scale (&plusmn;)</b>
-						<b><input type="radio" id="useScheduleMonths" name="months"> Months</b>
-						<b><input type="radio" id="useSchedulePercent" name="months" checked> % Delay</b>
-						
-						<span class="blue">Significantly Early &le;</span>
-						<input type="number" id="iptBlueScheduleRating" class="short month" disabled>
-						<input type="number" id="iptBluePercent" class="short" min="-100" value="-20">
-							
-						<span class="teal">Early &le;</span>
-						<input type="number" id="iptTealScheduleRating" class="short month" disabled>
-						<input type="number" id="iptTealPercent" class="short" value="-10">
-							
-						<span class="green">Acceptable &le;</span>
-						<input type="number" id="iptGreenScheduleRating" class="short month" disabled>
-						<input type="number" id="iptGreenPercent" class="short" value="5">
-							
-						<span class="yellow">Late &le;</span>
-						<input type="number" id="iptYellowScheduleRating" class="short month" disabled>
-						<input type="number" id="iptYellowPercent" class="short" value="10">
-							
-						<span class="red">Too Late &gt;</span>
-						<input type="number" id="iptRedScheduleRating" class="short month" disabled>
-						<input type="number" id="iptRedPercent" class="short" value="10" disabled>
-					</div>
-				
-					<!-- Affordability -->
-					<div id="affordability_block" class="grid_4">
-						<b>Affordability Rating Scale (&plusmn;)</b>
-						<b><input type="radio" id="useBudgetCost" name="budget">Cost ($K)</b>
-						<b><input type="radio" id="useBudgetPercent" name="budget" checked>% Overrun</b>
-						<b>Symbols</b>
-						
-						<span class="green">Affordable  &le;</span>
-						<input type="number" id="iptGreenAffordRating" class="short" disabled>
-						<input type="number" id="iptGreenAffordPercent" class="short" value="5">
-						&#10003
-						
-						<span class="yellow">Budget Risk &le;</span>
-						<input type="number" id="iptYellowAffordRating" class="short" disabled>
-						<input type="number" id="iptYellowAffordPercent" class="short" value="10">
-						?
-						
-						<span class="red">Unaffordable &gt;</span>
-						<input type="number" id="iptRedAffordRating" class="short" disabled>
-						<input type="number" id="iptRedAffordPercent" class="short" value="10" disabled>
-						X
-					</div>
-					
-					<!-- Security Rating Scale -->
-					<div class="grid_2 center_text top_margin">
-						<b>Security Rating Scale</b>
-						<b>Ratings</b>
-						
-						<span class="green">Low Risk</span>
-						<span id="iptGreenSecurityRating" class="short">4</span>
-						<span class="yellow">Moderate Risk</span>
-						<span id="iptYellowSecurityRating" class="short">2</span>
-						<span class="red">High Risk</span>
-						<span id="iptRedSecurityRating" class="short">0</span>
-					</div>
-					
-					<!-- Buttons -->
-					<div class="top_margin center_text">
-						<button id="btnLoad" class="button">Load</button>
-						<button id="btnReset" class="button">Restore</button>
-						<button id="btnSave" class="button">Save</button>
-						<button id="btnHide" class="button">Hide</button>
-					</div>
-				</div>
-			</div>
+            <!-- General Scale -->
+            <div class="grid_2">
+              <b>General Rating Scale</b>
+              <b>Ratings</b>
+              <span class="blue">Maximum Rating =</span>
+              <input
+                type="number"
+                id="iptMaxGeneralRating"
+                class="short"
+                value="10"
+              />
+              <span class="blue">Outstanding &ge;</span>
+              <input
+                type="number"
+                id="iptBlueGeneralRating"
+                class="short"
+                value="9"
+              />
+              <span class="teal">Excelent &ge;</span>
+              <input
+                type="number"
+                id="iptTealGeneralRating"
+                class="short"
+                value="7"
+              />
+              <span class="green">Acceptable &ge;</span>
+              <input
+                type="number"
+                id="iptGreenGeneralRating"
+                class="short"
+                value="4"
+              />
+              <span class="yellow">Deficient &ge;</span>
+              <input
+                type="number"
+                id="iptYellowGeneralRating"
+                class="short"
+                value="2"
+              />
+              <span class="red">Significantly Deficient &ge;</span>
+              <input
+                type="number"
+                id="iptRedGeneralRating"
+                class="short"
+                value="0"
+              />
+            </div>
 
-			<!-- ------------------------------------------------------------------------- -->
-			<!-- EVALUATION GRID -->
+            <!-- Schedule Scale -->
+            <div id="schedule_block" class="grid_3">
+              <b>Schedule Rating Scale (&plusmn;)</b>
+              <b
+                ><input
+                  type="radio"
+                  id="useScheduleMonths"
+                  name="months"
+                />
+                Months</b
+              >
+              <b
+                ><input
+                  type="radio"
+                  id="useSchedulePercent"
+                  name="months"
+                  checked
+                />
+                % Delay</b
+              >
 
-			<div id="evalGrid">
+              <span class="blue">Significantly Early &le;</span>
+              <input
+                type="number"
+                id="iptBlueScheduleRating"
+                class="short month"
+                disabled
+              />
+              <input
+                type="number"
+                id="iptBluePercent"
+                class="short"
+                min="-100"
+                value="-20"
+              />
 
-				<!-- ------------------------------------------------------------------------- -->
-				<!-- FACTORS -->
-				<div class="column-header" data-column="factor">Factors</div>
+              <span class="teal">Early &le;</span>
+              <input
+                type="number"
+                id="iptTealScheduleRating"
+                class="short month"
+                disabled
+              />
+              <input
+                type="number"
+                id="iptTealPercent"
+                class="short"
+                value="-10"
+              />
 
-				<!-- The First Factor -->
-				<div class="evalGridItem factor" 
-					data-column="factor" 
-					data-factor="1"
-				>
-					<textarea rows="1" class="factor-description" 
-						placeholder="Factor 1 Description"
-					></textarea>
-					
-					<div class="weight">
-						<label for="weight_f1"></label>
-						<input type="number" placeholder="Weight" id="weight_f1">
-						<span>%</span>
-					</div>
-					<div id="context_menu_factors" class="context_menu">
-						<a href="#">&#10033</a>
-						<a href="#">&#128465;</a>
-						<a href="#">&#8593</a>
-						<a href="#">&darr;</a>
-					</div>
-				</div>
+              <span class="green">Acceptable &le;</span>
+              <input
+                type="number"
+                id="iptGreenScheduleRating"
+                class="short month"
+                disabled
+              />
+              <input
+                type="number"
+                id="iptGreenPercent"
+                class="short"
+                value="5"
+              />
 
-				<!-- REQUIREMENTS -->
-				<div class="evalGridItem reqs" 
-					data-reqs="0" 
-					data-column="factor"
-				>
-					<div class="factor-description">Requirements</div>
-					<div class="weight">
-						<label for="weight_reqs"></label>
-						<input type="number" placeholder="Weight"  id="weight_reqs">
-						<span>%</span>
-					</div>
-				</div>
+              <span class="yellow">Late &le;</span>
+              <input
+                type="number"
+                id="iptYellowScheduleRating"
+                class="short month"
+                disabled
+              />
+              <input
+                type="number"
+                id="iptYellowPercent"
+                class="short"
+                value="10"
+              />
 
-				<!-- SECURITY -->
-				<div class="evalGridItem sec" 
-					data-sec="0" 
-					data-column="factor"
-				>
-					<div class="factor-description">Security</div>
-					<div class="weight">
-						<label for="weight_sec"></label>
-						<input type="number" placeholder="Weight" id="weight_sec">
-						<span>%</span>
-					</div>
-				</div>
-				
-				<!-- SCHEDULE -->
-				<div class="evalGridItem sched" 
-					data-sched="0" 
-					data-column="factor"
-				>
-					<div class="factor-description">Schedule</div>
-					<div class="weight">
-						<label for="weight_sched"></label>
-						<input type="number" placeholder="Weight" id="weight_sched">
-						<span>%</span>
-					</div>
-				</div>
+              <span class="red">Too Late &gt;</span>
+              <input
+                type="number"
+                id="iptRedScheduleRating"
+                class="short month"
+                disabled
+              />
+              <input
+                type="number"
+                id="iptRedPercent"
+                class="short"
+                value="10"
+                disabled
+              />
+            </div>
 
-				<!-- COST -->
-				<div class="evalGridItem center" 
-					data-cost="0" 
-					data-column="factor"
-				>
-					<div>
-						<b class="factor-description">Cost </b>($K)
-					</div>
-				</div>
+            <!-- Affordability -->
+            <div id="affordability_block" class="grid_4">
+              <b>Affordability Rating Scale (&plusmn;)</b>
+              <b
+                ><input
+                  type="radio"
+                  id="useBudgetCost"
+                  name="budget"
+                />Cost ($K)</b
+              >
+              <b
+                ><input
+                  type="radio"
+                  id="useBudgetPercent"
+                  name="budget"
+                  checked
+                />% Overrun</b
+              >
+              <b>Symbols</b>
 
-				<!-- AFFORDABILITY -->
-				<div class="evalGridItem center" 
-					data-aff="0"
-					data-column="factor"
-				>
-					<div>
-						<b class="factor-description">Affordability </b>(Budget &ge; Cost)
-					</div>				
-				</div>
+              <span class="green">Affordable &le;</span>
+              <input
+                type="number"
+                id="iptGreenAffordRating"
+                class="short"
+                disabled
+              />
+              <input
+                type="number"
+                id="iptGreenAffordPercent"
+                class="short"
+                value="5"
+              />
+              &#10003;
 
-				<!-- VALUE -->
-				<div class="evalGridItem center" 
-					data-val="0" 
-					data-column="factor"
-				>
-					<b class="factor-description">Value</b>
-				</div>
+              <span class="yellow">Budget Risk &le;</span>
+              <input
+                type="number"
+                id="iptYellowAffordRating"
+                class="short"
+                disabled
+              />
+              <input
+                type="number"
+                id="iptYellowAffordPercent"
+                class="short"
+                value="10"
+              />
+              ?
 
-				<!-- COST-EFFECTIVENESS -->
-				<div class="evalGridItem center" 
-					data-ce="0" 
-					data-column="factor"
-				>
-					<div>
-						<b class="factor-description">Cost Effectiveness</b> (Value / Cost)
-					</div>
-				</div>
+              <span class="red">Unaffordable &gt;</span>
+              <input
+                type="number"
+                id="iptRedAffordRating"
+                class="short"
+                disabled
+              />
+              <input
+                type="number"
+                id="iptRedAffordPercent"
+                class="short"
+                value="10"
+                disabled
+              />
+              X
+            </div>
 
-				<!-- ------------------------------------------------------------------------- -->
-				<!-- SUBFACTORS -->
-				<div class="column-header" data-column="subfactor">Subfactors</div>
+            <!-- Security Rating Scale -->
+            <div class="grid_2 center_text top_margin">
+              <b>Security Rating Scale</b>
+              <b>Ratings</b>
 
-				<!-- The First Subfactor -->
-				<div class="evalGridItem subfactor" 
-					data-column="subfactor" 
-					data-factor="1"
-					data-subfactor="1"
-				>
-					<textarea class="subfactor-description" 
-						placeholder="Subfactor 1 Description"
-					></textarea>
-					<div class="weight">
-						<label for="weight_f1_sf1"></label>
-						<input type="number" placeholder="Weight" id="weight_f1_sf1">
-						<span>%</span>
-					</div>
-				</div>
+              <span class="green">Low Risk</span>
+              <span id="iptGreenSecurityRating" class="short">4</span>
+              <span class="yellow">Moderate Risk</span>
+              <span id="iptYellowSecurityRating" class="short">2</span>
+              <span class="red">High Risk</span>
+              <span id="iptRedSecurityRating" class="short">0</span>
+            </div>
 
-				<!-- The Second Subfactor -->
-				<div class="evalGridItem subfactor" 
-					data-column="subfactor"
-					data-factor="1"
-					data-subfactor="2"
-				>
-					<textarea class="subfactor-description" 
-						placeholder="Subfactor 2 Description"
-					></textarea>	
-					<div class="weight">
-						<label for="weight_f1_sf2"></label>
-						<input type="number" placeholder="Weight" id="weight_f1_sf2">
-						<span>%</span>
-					</div>	
-				</div>
+            <!-- Buttons -->
+            <div class="top_margin center_text">
+              <button id="btnLoad" class="button">Load</button>
+              <button id="btnReset" class="button">Restore</button>
+              <button id="btnSave" class="button">Save</button>
+              <button id="btnHide" class="button">Hide</button>
+            </div>
+          </div>
+        </div>
 
-				<!-- Requirements Subfactor -->
-				<div class="evalGridItem block" data-column="subfactor"></div>
-				
-				<!-- Security Subfactor -->
-				<div class="evalGridItem block"  data-column="subfactor"></div>
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- EVALUATION GRID -->
 
-				<!-- Schedule Subfactor -->
-				<div class="evalGridItem block" data-column="subfactor"></div>
-				
-				<!-- Cost Subfactor -->
-				<div class="evalGridItem block"  data-column="subfactor"></div>
+        <div id="evalGrid">
+          <!-- ------------------------------------------------------------------------- -->
+          <!-- FACTORS -->
+          <div class="column-header" data-column="factor">Factors</div>
 
-				<!-- Affordability Subfactor -->
-				<div class="evalGridItem block" data-column="subfactor"></div>
+          <!-- The First Factor -->
+          <div
+            class="evalGridItem factor"
+            data-column="factor"
+            data-factor="1"
+          >
+            <textarea
+              rows="1"
+              class="factor-description"
+              placeholder="Factor 1 Description"
+            ></textarea>
 
-				<!-- Value Subfactor -->
-				<div class="evalGridItem block" data-column="subfactor"></div>
+            <div class="weight">
+              <label for="weight_f1"></label>
+              <input type="number" placeholder="Weight" id="weight_f1" />
+              <span>%</span>
+            </div>
+            <div id="context_menu_factors" class="context_menu">
+              <a href="#">&#10033;</a>
+              <a href="#">&#128465;</a>
+              <a href="#">&#8593;</a>
+              <a href="#">&darr;</a>
+            </div>
+          </div>
 
-				<!-- Cost-Effectiveness Subfactor -->
-				<div class="evalGridItem block" data-column="subfactor"></div>
+          <!-- REQUIREMENTS -->
+          <div
+            class="evalGridItem reqs"
+            data-reqs="0"
+            data-column="factor"
+          >
+            <div class="factor-description">Requirements</div>
+            <div class="weight">
+              <label for="weight_reqs"></label>
+              <input type="number" placeholder="Weight" id="weight_reqs" />
+              <span>%</span>
+            </div>
+          </div>
 
-				<!-- ------------------------------------------------------------------------- -->
-				<!-- ALTERNATIVES and EVALUATIONS -->
-				<div class="column-header alternative"
-					id="column_alt1" 
-					data-column="alternative"
-					data-alternative="1"
-					>
-					<textarea type="text" 
-						id="name_alt1" 
-						data-alternative="1"
-						placeholder="Alternative 1"
-						rows="1"
-						class="center_text"
-					></textarea>
+          <!-- SECURITY -->
+          <div class="evalGridItem sec" data-sec="0" data-column="factor">
+            <div class="factor-description">Security</div>
+            <div class="weight">
+              <label for="weight_sec"></label>
+              <input type="number" placeholder="Weight" id="weight_sec" />
+              <span>%</span>
+            </div>
+          </div>
 
-					<!-- Context Menu: inital location -->
-					<div id="context_menu_alternatives" 
-						class="context_menu_alternatives"
-						data-alternative="1"
-						>
-						<a href="#" id="context_menu_alt_new">&#10033</a>
-						<a href="#" id="context_menu_alt_delete">&#128465;</a>
-						<a href="#" id="context_menu_alt_left">&lArr;</a>
-						<a href="#" id="context_menu_alt_right">&rArr;</a>
-					</div>
-				</div>
+          <!-- SCHEDULE -->
+          <div
+            class="evalGridItem sched"
+            data-sched="0"
+            data-column="factor"
+          >
+            <div class="factor-description">Schedule</div>
+            <div class="weight">
+              <label for="weight_sched"></label>
+              <input
+                type="number"
+                placeholder="Weight"
+                id="weight_sched"
+              />
+              <span>%</span>
+            </div>
+          </div>
 
-				<!-- Factor 1, Subfactor 1 -->
-				<div class="evalGridItem evaluation" 
-					id="eval_alt1_f1_sf1"
-					data-alternative="1"
-					data-factor="1"
-					data-subfactor="1"
-				>
-					<textarea class="comment" id="ta" rows="1"
-						placeholder="comments"
-					></textarea>
-					
-					<input type="number"
-						class="very_short_input" 
-						placeholder="score">
-				</div>
+          <!-- COST -->
+          <div
+            class="evalGridItem center"
+            data-cost="0"
+            data-column="factor"
+          >
+            <div> <b class="factor-description">Cost </b>($K) </div>
+          </div>
 
-				<!-- Factor 1, Subfactor 2 -->
-				<div class="evalGridItem evaluation" 
-					id="eval_alt1_f1_sf2"
-					data-alternative="1"
-					data-factor="1"
-					data-subfactor="2"
-				>
-					<textarea class="comment" rows="1"
-						placeholder="comments"
-					></textarea>
-					
-					<input type="number" 
-						class="very_short_input" 
-						placeholder="score">
-				</div>
+          <!-- AFFORDABILITY -->
+          <div
+            class="evalGridItem center"
+            data-aff="0"
+            data-column="factor"
+          >
+            <div>
+              <b class="factor-description">Affordability </b>(Budget &ge;
+              Cost)
+            </div>
+          </div>
 
-				<!-- Requirements Evaluation  -->
-				<div class="evalGridItem evaluation" 
-					id="req_alt1"
-					data-alternative="1"
-					data-factor="reqs"
-					placeholder="Comments"
-				>
-					<textarea class="comment" rows="1"
-						placeholder="comments"
-					></textarea>
-					
-					<input type="number" 
-						class="very_short_input" 
-						placeholder="score">
-				</div>
+          <!-- VALUE -->
+          <div
+            class="evalGridItem center"
+            data-val="0"
+            data-column="factor"
+          >
+            <b class="factor-description">Value</b>
+          </div>
 
-				<!-- Security Evaluation -->
-				<div class="evalGridItem sec-eval"
-				id="sec_alt1"	
-				data-alternative="1"
-					>
-					<label class="choice red" data-sel="true" data-color="red">H</label>
-					<label class="choice" data-sel data-color="yellow">M</label>
-					<label class="choice" data-sel data-color="green">L</label>
-				</div>
+          <!-- COST-EFFECTIVENESS -->
+          <div
+            class="evalGridItem center"
+            data-ce="0"
+            data-column="factor"
+          >
+            <div>
+              <b class="factor-description">Cost Effectiveness</b> (Value /
+              Cost)
+            </div>
+          </div>
 
-				<!-- Schedule Evalution -->
-				<div class="evalGridItem center"
-					data-alternative="1"
-					data-factor="schedule"
-					id="sched_alt1"
-				>
-					<div>
-						<input type="number" 
-							class="very_short_input"
-						>months
-					</div>	
-					<div>
-						Score: <span>0</span>
-					</div>
-				</div>
-				
-				<!-- Cost Evalution -->
-				<div class="evalGridItem center"
-					data-alternative="1"
-					data-factor="cost"
-					id="cost_alt1"
-				>
-					<div>
-						$<input type="number" 
-							placeholder="Cost" 
-							class="short_input"
-							>
-					</div>	
-				</div>
+          <!-- ------------------------------------------------------------------------- -->
+          <!-- SUBFACTORS -->
+          <div class="column-header" data-column="subfactor"
+            >Subfactors</div
+          >
 
-				<!-- Affordability Evaluation -->
-				<div class="evalGridItem center" 
-					id="afford_alt1"
-					data-alternative="1" 
-					data-factor="affordability"
-				>&#10003</div>
+          <!-- The First Subfactor -->
+          <div
+            class="evalGridItem subfactor"
+            data-column="subfactor"
+            data-factor="1"
+            data-subfactor="1"
+          >
+            <textarea
+              class="subfactor-description"
+              placeholder="Subfactor 1 Description"
+            ></textarea>
+            <div class="weight">
+              <label for="weight_f1_sf1"></label>
+              <input
+                type="number"
+                placeholder="Weight"
+                id="weight_f1_sf1"
+              />
+              <span>%</span>
+            </div>
+          </div>
 
-				<!-- Value Evaluation -->
-				<div class="evalGridItem center" 
-					id="value_alt1"
-					data-alternative="1" 
-					data-factor="value"
-				>0.000</div>
+          <!-- The Second Subfactor -->
+          <div
+            class="evalGridItem subfactor"
+            data-column="subfactor"
+            data-factor="1"
+            data-subfactor="2"
+          >
+            <textarea
+              class="subfactor-description"
+              placeholder="Subfactor 2 Description"
+            ></textarea>
+            <div class="weight">
+              <label for="weight_f1_sf2"></label>
+              <input
+                type="number"
+                placeholder="Weight"
+                id="weight_f1_sf2"
+              />
+              <span>%</span>
+            </div>
+          </div>
 
-				<!-- Cost-Effectiveness Evaluation -->
-				<div class="evalGridItem center" 
-				id="ce_alt1"
-					data-alternative="1" 
-					data-factor="ce"
-				>0.000</div>
-			</div>
-		</section>
-	</div>
+          <!-- Requirements Subfactor -->
+          <div class="evalGridItem block" data-column="subfactor"></div>
 
-	<script src="Setup_script.js"></script>
-	<script src="eval_script.js"></script>
-</body>
+          <!-- Security Subfactor -->
+          <div class="evalGridItem block" data-column="subfactor"></div>
+
+          <!-- Schedule Subfactor -->
+          <div class="evalGridItem block" data-column="subfactor"></div>
+
+          <!-- Cost Subfactor -->
+          <div class="evalGridItem block" data-column="subfactor"></div>
+
+          <!-- Affordability Subfactor -->
+          <div class="evalGridItem block" data-column="subfactor"></div>
+
+          <!-- Value Subfactor -->
+          <div class="evalGridItem block" data-column="subfactor"></div>
+
+          <!-- Cost-Effectiveness Subfactor -->
+          <div class="evalGridItem block" data-column="subfactor"></div>
+
+          <!-- ------------------------------------------------------------------------- -->
+          <!-- ALTERNATIVES and EVALUATIONS -->
+          <div
+            class="column-header alternative"
+            id="column_alt1"
+            data-column="alternative1"
+            data-alternative="1"
+          >
+            <textarea
+              type="text"
+              id="name_alt1"
+              data-alternative="1"
+              placeholder="Alternative 1"
+              rows="1"
+              class="center_text"
+            ></textarea>
+
+            <!-- Context Menu: inital location -->
+            <div
+              id="context_menu_alternatives"
+              class="context_menu_alternatives"
+              data-alternative="1"
+            >
+              <a href="#" id="context_menu_alt_new">&#10033;</a>
+              <a href="#" id="context_menu_alt_delete">&#128465;</a>
+              <a href="#" id="context_menu_alt_left">&lArr;</a>
+              <a href="#" id="context_menu_alt_right">&rArr;</a>
+            </div>
+          </div>
+
+          <!-- Factor 1, Subfactor 1 -->
+          <div
+            class="evalGridItem evaluation"
+            id="eval_alt1_f1_sf1"
+            data-alternative="1"
+            data-factor="1"
+            data-subfactor="1"
+          >
+            <textarea
+              class="comment"
+              id="ta"
+              rows="1"
+              placeholder="comments"
+            ></textarea>
+
+            <input
+              type="number"
+              class="very_short_input"
+              placeholder="score"
+            />
+          </div>
+
+          <!-- Factor 1, Subfactor 2 -->
+          <div
+            class="evalGridItem evaluation"
+            id="eval_alt1_f1_sf2"
+            data-alternative="1"
+            data-factor="1"
+            data-subfactor="2"
+          >
+            <textarea
+              class="comment"
+              rows="1"
+              placeholder="comments"
+            ></textarea>
+
+            <input
+              type="number"
+              class="very_short_input"
+              placeholder="score"
+            />
+          </div>
+
+          <!-- Requirements Evaluation  -->
+          <div
+            class="evalGridItem evaluation"
+            id="req_alt1"
+            data-alternative="1"
+            data-factor="reqs"
+            placeholder="Comments"
+          >
+            <textarea
+              class="comment"
+              rows="1"
+              placeholder="comments"
+            ></textarea>
+
+            <input
+              type="number"
+              class="very_short_input"
+              placeholder="score"
+            />
+          </div>
+
+          <!-- Security Evaluation -->
+          <div
+            class="evalGridItem sec-eval"
+            id="sec_alt1"
+            data-alternative="1"
+          >
+            <label class="choice red" data-sel="true" data-color="red"
+              >H</label
+            >
+            <label class="choice" data-sel data-color="yellow">M</label>
+            <label class="choice" data-sel data-color="green">L</label>
+          </div>
+
+          <!-- Schedule Evalution -->
+          <div
+            class="evalGridItem center"
+            data-alternative="1"
+            data-factor="schedule"
+            id="sched_alt1"
+          >
+            <div>
+              <input type="number" class="very_short_input" />months
+            </div>
+            <div> Score: <span>0</span> </div>
+          </div>
+
+          <!-- Cost Evalution -->
+          <div
+            class="evalGridItem center"
+            data-alternative="1"
+            data-factor="cost"
+            id="cost_alt1"
+          >
+            <div>
+              $<input
+                type="number"
+                placeholder="Cost"
+                class="short_input"
+              />
+            </div>
+          </div>
+
+          <!-- Affordability Evaluation -->
+          <div
+            class="evalGridItem center"
+            id="afford_alt1"
+            data-alternative="1"
+            data-factor="affordability"
+            >&#10003;</div
+          >
+
+          <!-- Value Evaluation -->
+          <div
+            class="evalGridItem center"
+            id="value_alt1"
+            data-alternative="1"
+            data-factor="value"
+            >0.000</div
+          >
+
+          <!-- Cost-Effectiveness Evaluation -->
+          <div
+            class="evalGridItem center"
+            id="ce_alt1"
+            data-alternative="1"
+            data-factor="ce"
+            >0.000</div
+          >
+        </div>
+      </section>
+    </div>
+
+    <script src="Setup_script.js"></script>
+    <script src="eval_script.js"></script>
+  </body>
 </html>
