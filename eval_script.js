@@ -57,8 +57,17 @@ $qAll(document, '.alternative.column-header').forEach(header => {
   header.addEventListener('mouseenter', event => {
     var thisHeader = event.target
     var thisAlternative = thisHeader.dataset.alternative
-    thisHeader.appendChild(context_menu_alternatives)
+
+    var left = thisHeader.offsetLeft + evalGrid.offsetLeft + 'px'
+    var top = thisHeader.offsetTop + evalGrid.offsetTop + 'px'
+
+    context_menu_alternatives.style.left = left
+    context_menu_alternatives.style.top = top
+
+    context_menu_alternatives.style.opacity = '100%'
+    console.log(left, top)
     context_menu_alternatives.dataset.alternative = thisAlternative
+    // thisHeader.appendChild(context_menu_alternatives)
     // console.log('mouse over alternative: ' + thisAlternative)
   })
 })
