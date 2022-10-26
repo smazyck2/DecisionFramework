@@ -177,8 +177,9 @@ textarea {
 
 /* Show context menus on hover */
 :is(.subfactor, .factor, .alternative):hover
-  :is(.context_menu, .context_menu_alternatives) {
+  ~ :is(.context_menu, .context_menu_alternatives) {
   opacity: 100%;
+  z-index: 100;
 }
 
 .factor {

@@ -320,12 +320,6 @@
               <input type="number" placeholder="Weight" id="weight_f1" />
               <span>%</span>
             </div>
-            <div id="context_menu_factors" class="context_menu">
-              <a href="#">&#10033;</a>
-              <a href="#">&#128465;</a>
-              <a href="#">&#8593;</a>
-              <a href="#">&darr;</a>
-            </div>
           </div>
 
           <!-- REQUIREMENTS -->
@@ -499,18 +493,6 @@
               rows="1"
               class="center_text"
             ></textarea>
-
-            <!-- Context Menu: inital location -->
-            <div
-              id="context_menu_alternatives"
-              class="context_menu_alternatives"
-              data-alternative="1"
-            >
-              <a href="#" id="context_menu_alt_new">&#10033;</a>
-              <a href="#" id="context_menu_alt_delete">&#128465;</a>
-              <a href="#" id="context_menu_alt_left">&lArr;</a>
-              <a href="#" id="context_menu_alt_right">&rArr;</a>
-            </div>
           </div>
 
           <!-- Factor 1, Subfactor 1 -->
@@ -645,6 +627,25 @@
             data-factor="ce"
             >0.000</div
           >
+        </div>
+
+        <!-- CONTEXT MENUS -->
+        <div id="context_menu_factors" class="context_menu">
+          <a href="#">&#10033;</a>
+          <a href="#">&#128465;</a>
+          <a href="#">&#8593;</a>
+          <a href="#">&darr;</a>
+        </div>
+
+        <div
+          id="context_menu_alternatives"
+          class="context_menu_alternatives"
+          data-alternative="1"
+        >
+          <a href="#" id="context_menu_alt_new">&#10033;</a>
+          <a href="#" id="context_menu_alt_delete">&#128465;</a>
+          <a href="#" id="context_menu_alt_left">&lArr;</a>
+          <a href="#" id="context_menu_alt_right">&rArr;</a>
         </div>
       </section>
     </div>
