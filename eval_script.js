@@ -2,6 +2,7 @@
 
 // RESIZE ITEMS -------------------------------------------------------
 // Resize Columns
+
 const resizeObserver = new ResizeObserver(entries => {
   entries.forEach(entry => {
     // console.log(entry)
@@ -19,14 +20,17 @@ const resizeObserver = new ResizeObserver(entries => {
   })
 })
 
+var allHeaders = $qAll($('evalGrid'), '.column-header')
+allHeaders.forEach(resizeColumn)
+
+// Resize Textareas
+$qAll($('evalGrid'), 'textarea').forEach(resizeTextAreaOnInput)
+
+// -- Helpers
 function resizeColumn(columnHeader) {
   resizeObserver.observe(columnHeader)
 }
 
-var allHeaders = $qAll($('evalGrid'), '.column-header')
-allHeaders.forEach(resizeColumn)
-
-// Resize Text Areas
 function resizeTextAreaOnInput(textArea) {
   textArea.addEventListener('input', event => {
     var ta = event.target
@@ -36,17 +40,9 @@ function resizeTextAreaOnInput(textArea) {
   })
 }
 
-$qAll($('evalGrid'), 'textarea').forEach(resizeTextAreaOnInput)
-
 // CONTEXT MENUS -------------------------------------------------------
 // Factors and Sub-Factors
 var context_menu_factors = $('context_menu_factors')
-
-function showFactorContextMenu(factor) {
-  factor.addEventListener('mouseenter', event => {
-    event.target.appendChild(context_menu_factors)
-  })
-}
 
 $qAll(document, '.subfactor, .factor').forEach(showFactorContextMenu)
 
@@ -54,6 +50,12 @@ var context_menu_alternatives = $('context_menu_alternatives')
 $qAll(document, '.alternative.column-header').forEach(header => {
   console.log('looping alterntives')
 
+  showAlternativeContextMenu(header)
+})
+
+// TODO -- Fix reshaping of Context Menu when changing headers
+// -- Helpers
+function showAlternativeContextMenu(header) {
   header.addEventListener('mouseenter', event => {
     var thisHeader = event.target
     var thisAlternative = thisHeader.dataset.alternative
@@ -70,7 +72,13 @@ $qAll(document, '.alternative.column-header').forEach(header => {
     // thisHeader.appendChild(context_menu_alternatives)
     // console.log('mouse over alternative: ' + thisAlternative)
   })
-})
+}
+
+function showFactorContextMenu(factor) {
+  factor.addEventListener('mouseenter', event => {
+    event.target.appendChild(context_menu_factors)
+  })
+}
 
 // DATA OBJECT MODEL ----------------------------------------------------
 // Data Object Model and Its Initialization
@@ -127,12 +135,8 @@ $qAll(document, '.alternative.column-header').forEach(header => {
     DOM.evaluations = {}
     DOM.evaluations.numAlternatives = 1
 
-    let alternative1 = {}
-    DOM.evaluations.alternative1 = alternative1
-
-    // Column header and description
-    alternative1.columnHeaderNode = $(`column_alt1`)
-    alternative1.name = $('name_alt1')
+    let altNode1 = $(`column_alt1`)
+    let alternative1 = registerAltNodeWithDOM(altNode1, $('name_alt1'), 1)
 
     // Subfactor evaluations
     for (let i = 1; i <= factors.numFactors; i++) {
@@ -171,9 +175,19 @@ $qAll(document, '.alternative.column-header').forEach(header => {
   }
 }
 
-function configSfactorEval(alternative, i, j, evalParentNode) {
-  alternative[`evalf${i}sf${j}`] = {}
-  alternative[`evalf${i}sf${j}`].evalParentNode = evalParentNode
+// -- Helpers
+function registerAltNodeWithDOM(altHeaderNode, altNameNode, index) {
+  DOM.evaluations[`alternative${index}`] = {}
+  DOM.evaluations[`alternative${index}`].columnHeaderNode = altHeaderNode
+  DOM.evaluations[`alternative${index}`].name = altNameNode
+
+  return DOM.evaluations[`alternative${index}`]
+}
+
+function configSfactorEval(AlternativeDOM, f, sf, evalParentNode) {
+  AlternativeDOM[`evalf${f}sf${sf}`] = {}
+  AlternativeDOM[`evalf${f}sf${sf}`].evalParentNode = evalParentNode
+
   let commentNode = $q(evalParentNode, 'textArea')
   evalParentNode.commentNode = commentNode
 
@@ -185,63 +199,17 @@ function configSfactorEval(alternative, i, j, evalParentNode) {
 
 // ALTERNATIVES --------------------------------------------------------------
 
+// -- Context Menu
 $('context_menu_alt_new').addEventListener('click', addNewAlternative)
 
-// SECURITY ----------------------------------------------------------
-// SHOW AND STORE CHOICE FOR SECURITY
-
-var securityChoices = $qAll($('evalGrid'), '.choice')
-configureSecurityChoices(securityChoices)
-
-function configureSecurityChoices(securityChoices) {
-  securityChoices.forEach(element =>
-    element.addEventListener('click', event => {
-      securityChoices.forEach(choice => {
-        choice.dataset.sel = false
-        choice.classList.remove(`${choice.dataset.color}`)
-      })
-      element.dataset.sel = true
-      element.classList.add(`${element.dataset.color}`)
-      let securitySelection = element.textContent // H, M, L
-    })
-  )
-}
-
-// COST
-
-/// TEST -- Changing the grid size using custom property
-// $('weight_f1').addEventListener('click', event => {
-//   $('evalGrid').style.setProperty('--num_subfactors', 1)
-// })
-
-// -------------------------------------------------------------------
-// UI
-
-// TODO -- Add/Remove alternatives
-
+// -- Add/Remove alternatives
 function addNewAlternative(event) {
   let thisIndex = +event.target.parentElement.dataset.alternative
   let newIndex = thisIndex + 1
 
-  let numAlternatives = ++DOM.evaluations.numAlternatives
+  let numAlternatives = DOM.evaluations.numAlternatives
 
-  console.log(`thisIndex: ${thisIndex}`)
-  console.log(`old numAlternatives: ${numAlternatives}`)
-  console.log(`thisIndex: ${thisIndex}`)
-
-  // Increment the values for alternatives that come after the new one
-  for (let i = numAlternatives - 1; i > thisIndex; i--) {
-    console.log(`populating: ${i} with ${i - 1}`)
-
-    DOM.evaluations[`alternative${i}`] = {
-      ...DOM.evaluations[`alternative${i - 1}`],
-    }
-
-    setAlternativeColumnValues(DOM.evaluations[`alternative${i}`], i + 1)
-
-    console.log(`moved DOM alternative ${i - 1} to ${i}`)
-  }
-
+  // -- Helpers
   function setAlternativeColumnValues(DOMAlternative, newValue) {
     console.log(`object being changed`, DOMAlternative)
 
@@ -265,32 +233,45 @@ function addNewAlternative(event) {
       .length
   }
 
+  // Start the process
+  console.log(`thisIndex: ${thisIndex}`)
+  console.log(`old numAlternatives: ${numAlternatives}`)
+  console.log(`thisIndex: ${thisIndex}`)
+
+  // Increment the values for alternatives that come after the new one
+  for (let i = numAlternatives; i > thisIndex; i--) {
+    console.log(`populating: ${i} with ${i + 1}`)
+
+    DOM.evaluations[`alternative${i + 1}`] = {
+      ...DOM.evaluations[`alternative${i}`],
+    }
+
+    setAlternativeColumnValues(DOM.evaluations[`alternative${i}`], i + 1)
+
+    console.log(`moved DOM alternative ${i} to ${i + 1}`)
+  }
+
+  DOM.evaluations.numAlternatives++
+  console.log(`new numAlternatives: ${numAlternatives}`)
+
   // -------------------------------------------------------------------------
   // Create a new header and its name
 
-  // can't clone column headers because of context menu
-  let newAlternative = $(`column_alt${thisIndex}`).cloneNode(false)
+  let newAlternative = $(`column_alt${thisIndex}`).cloneNode(true)
   newAlternative.id = `column_alt${newIndex}`
   newAlternative.dataset.alternative = newIndex
   newAlternative.dataset.column = `alternative${newIndex}`
+
   resizeObserver.observe(newAlternative)
+  showAlternativeContextMenu(newAlternative)
 
-  let oldNameAlt = $(`name_alt${thisIndex}`)
-  oldNameAlt.id = '0'
-
-  let newNameAlt = oldNameAlt.cloneNode(false)
+  let newNameAlt = $(`name_alt${thisIndex}`)
   newNameAlt.id = `name_alt${newIndex}`
   newNameAlt.placeholder = `Alternative ${newIndex}`
   newNameAlt.dataset.alternative = newIndex
-  oldNameAlt.id = `name_alt${thisIndex}`
+  resizeTextAreaOnInput(newNameAlt)
 
-  newAlternative.append(newNameAlt)
-
-  // Add the alternative column header to the eval grid & DOM
-  DOM.evaluations[`alternative${newIndex}`] = {
-    columnHeaderNode: newAlternative,
-    name: newNameAlt,
-  }
+  registerAltNodeWithDOM(newAlternative, newNameAlt, newIndex)
 
   let newDOMalternative = DOM.evaluations[`alternative${newIndex}`]
 
@@ -415,6 +396,36 @@ function addNewAlternative(event) {
   console.log('DOM.evaluations')
   console.log(DOM)
 }
+
+// SECURITY ----------------------------------------------------------
+// SHOW AND STORE CHOICE FOR SECURITY
+
+var securityChoices = $qAll($('evalGrid'), '.choice')
+configureSecurityChoices(securityChoices)
+
+function configureSecurityChoices(securityChoices) {
+  securityChoices.forEach(element =>
+    element.addEventListener('click', event => {
+      securityChoices.forEach(choice => {
+        choice.dataset.sel = false
+        choice.classList.remove(`${choice.dataset.color}`)
+      })
+      element.dataset.sel = true
+      element.classList.add(`${element.dataset.color}`)
+      let securitySelection = element.textContent // H, M, L
+    })
+  )
+}
+
+// COST
+
+/// TEST -- Changing the grid size using custom property
+// $('weight_f1').addEventListener('click', event => {
+//   $('evalGrid').style.setProperty('--num_subfactors', 1)
+// })
+
+// -------------------------------------------------------------------
+// UI
 
 // TODO -- Change all Contenteditable DIVS into Textareas
 
