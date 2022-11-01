@@ -10,7 +10,7 @@
   --weight_color: brown;
 
   position: relative;
-  margin: 8px;
+  margin: 16px 8px;
 
   display: -ms-grid;
   display: grid;
@@ -27,22 +27,6 @@
 }
 
 /* --- Elements ---*/
-
-/* Makes editable Divs look like input boxes */
-/* overflow-wrap: anywhere --> text wrapping/breakpoint */
-/* 
-[contenteditable] {
-  border-bottom: var(--border_bottom);
-  outline: none;
-
-  overflow-wrap: anywhere;
-} 
-
-[placeholder]:not(input):empty::before {
-  content: attr(placeholder);
-  color: var(--placeholder_color);
-}
-*/
 
 ::placeholder {
   color: var(--placeholder_color);
@@ -157,7 +141,7 @@ textarea {
 .context_menu,
 .context_menu_alternatives {
   position: absolute;
-  opacity: 0;
+  width: max-content;
 }
 
 .context_menu {
@@ -168,11 +152,13 @@ textarea {
   left: 0;
   top: -4px;
   z-index: 0;
+  background-color: #fff;
 }
 
 .context_menu *,
 .context_menu_alternatives * {
   text-decoration: none;
+  width: 100%;
 }
 
 /* Show context menus on hover */
@@ -190,7 +176,7 @@ textarea {
 
 .factor[data-factor='1'] {
   /* You want to span the number of subfactors */
-  grid-row-end: span 2;
+  grid-row-end: span var(--num_subfactors);
 }
 
 .factor-description {

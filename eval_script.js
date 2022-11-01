@@ -53,25 +53,42 @@ $qAll(document, '.alternative.column-header').forEach(header => {
   showAlternativeContextMenu(header)
 })
 
-// TODO -- Fix reshaping of Context Menu when changing headers
 // -- Helpers
 function showAlternativeContextMenu(header) {
+  let isHoveringOverContextMenu = false
+
   header.addEventListener('mouseenter', event => {
     var thisHeader = event.target
     var thisAlternative = thisHeader.dataset.alternative
 
     var left = thisHeader.offsetLeft + evalGrid.offsetLeft + 'px'
-    var top = thisHeader.offsetTop + evalGrid.offsetTop + 'px'
 
     context_menu_alternatives.style.left = left
     context_menu_alternatives.style.top = top
 
-    context_menu_alternatives.style.opacity = '100%'
+    context_menu_alternatives.hidden = false
     console.log(left, top)
     context_menu_alternatives.dataset.alternative = thisAlternative
-    // thisHeader.appendChild(context_menu_alternatives)
-    // console.log('mouse over alternative: ' + thisAlternative)
   })
+
+  header.addEventListener('mouseleave', hideAlternativesContextMenu)
+
+  context_menu_alternatives.addEventListener('mouseenter', _ => {
+    isHoveringOverContextMenu = true
+  })
+
+  context_menu_alternatives.addEventListener('mouseleave', _ => {
+    isHoveringOverContextMenu = false
+    hideAlternativesContextMenu()
+  })
+
+  function hideAlternativesContextMenu() {
+    console.log('left header')
+    setTimeout(_ => {
+      console.log('disappearing:', isHoveringOverContextMenu)
+      context_menu_alternatives.hidden = !isHoveringOverContextMenu
+    }, 500)
+  }
 }
 
 function showFactorContextMenu(factor) {
